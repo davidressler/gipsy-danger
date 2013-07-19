@@ -2,6 +2,13 @@
 
 
  app.controller('MainCtrl', function ($scope, $route, $location, $routeParams, Search, $timeout) {
+	 $scope.init = function() {
+		 $scope.isReady = true;
+		 if (!('zoom' in $location.search())) {
+			 $scope.updateURL();
+		 }
+	 };
+
 	 $scope.templates = [
 		 {path: '/search/poop', url: 'views/b.html'},
 		 {path: '/search/list', url: 'views/a.html'},
@@ -21,14 +28,10 @@
 	 SetTemplate();
 
 	$scope.$on('SearchUpdated', function () {
-		console.log('RESPONDING TO BROADCAST', $scope.search);
 		$scope.search = Search.getSearch();
-		console.log($scope.search);
-		console.log('NEW SEARCH', $scope.search);
 	});
 
 	 $scope.search = Search.getSearch();
-	 console.log($scope.search);
 
 	     angular.extend($scope, {
 	 	    options: {
@@ -61,7 +64,7 @@
 
 	$scope.isReady = false;
 	 $timeout(function() {
-		$scope.isReady = true;
+		$scope.init();
 	 });
 
 
@@ -71,7 +74,6 @@
 				 zoom: $scope.search.zoom,
 				 center: $scope.search.center[0] + "," + $scope.search.center[1]
 			 };
-			 console.log('ABOUT TO REDIRECT', $scope.search);
 			 $location.search(search);
 		 }
 	 };
@@ -81,31 +83,10 @@
 	 });
 
 	 $scope.$on('UpdateURL', function() {
+		 console.log('RESPONDING TO NO PARAMS');
 		$scope.updateURL();
 	 });
 
   });
 
-app.controller('ListCtrl', function ($scope) {
-	$scope.awesomeThings = [
-		'HTML5 Boilerplate',
-		'AngularJS',
-		'Karma'
-	];
 
-	$scope.templates = [
-		{name: 'a.html', url: 'views/a.html'},
-		{name: 'b.html', url: 'views/b.html'}
-	];
-
-	$scope.template = $scope.templates[1];
-});
-
-
-app.controller('MapCtrl', function ($scope, $routeParams, $route, $location) {
-	 console.log($route.current.params);
-	 console.log($routeParams);
-
-
-
-  });

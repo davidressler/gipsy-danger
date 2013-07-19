@@ -2,15 +2,21 @@
 
 var app = angular.module('angularRouterApp', ['google-maps']);
 
-app.run(function($rootScope, $route, $routeParams, Search) {
+app.run(function($rootScope, $location, $routeParams, Search) {
 	$rootScope.$on('$routeChangeSuccess', function () {
-		console.log('SUCCESS', $routeParams);
-		Search.setSearch($routeParams);
+
+		if($location.path() == '/search/map' || $location.path() == '/search/list') {
+			console.log('route change success', $routeParams);
+			Search.setSearch($routeParams);
+		}
+
 	})
 
 	$rootScope.$on('$routeUpdate', function() {
-		console.log('ROUTE PARAMS', $routeParams);
-		Search.setSearch($routeParams);
+		if ($location.path() == '/search/map' || $location.path() == '/search/list') {
+			console.log('route update', $routeParams);
+			Search.setSearch($routeParams);
+		}
 	})
 });
 
@@ -44,7 +50,7 @@ app.config(function ($routeProvider) {
       });
   });
 
-app.factory('Search', function($rootScope, $timeout) {
+app.factory('Search', function($rootScope) {
 	var search = {
 		zoom: 1,
 		center: [36, -122]
@@ -66,7 +72,6 @@ app.factory('Search', function($rootScope, $timeout) {
 				result[param] = parseInt(params[param]);
 			}
 		}
-		console.log('FORMATTED RESULT', result);
 		return result;
 	};
 
@@ -76,6 +81,7 @@ app.factory('Search', function($rootScope, $timeout) {
 			search = formatParams(params);
 			$rootScope.$broadcast('SearchUpdated');
 		} else {
+			console.log('NO PARAMS LETS BROADCAST');
 			$rootScope.$broadcast('UpdateURL');
 		}
 
