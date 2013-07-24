@@ -13,6 +13,87 @@
             width:1000px;
             height:1000px;
         }
+
+        .alert-box-overlay{
+            width: 1000px;
+            height: 1000px;
+            background-color: #000;
+            opacity: 0.4;
+            position: absolute;
+            top:45px;
+        }
+
+        .alert-box{
+            position: absolute;
+            border: solid 2px #f23c17;
+            width: 300px;
+            height: 300px;
+            top:350px;
+            left:350px;
+        }
+
+        .alert-box span{
+            display: block;
+            background-color: white;
+            width: 300px;
+            height: 300px;
+            opacity: 0.5;
+        }
+
+        .ui-resizable-handle {
+            position: absolute;
+            font-size: 0.1px;
+            display: block;
+        }
+
+        .ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle {
+            display: none;
+        }
+
+        .ui-resizable-se {
+            border-radius: 100px;
+            border: solid 2px #f23c17;
+            cursor: se-resize;
+            background-color: #e3e3e3;
+            width: 12px;
+            height: 12px;
+            right: -8px;
+            bottom: -8px;
+        }
+
+        .ui-resizable-sw {
+            border-radius: 100px;
+            border: solid 2px #f23c17;
+            cursor: se-resize;
+            background-color: #e3e3e3;
+            width: 12px;
+            height: 12px;
+            left: -8px;
+            bottom: -8px;
+        }
+
+        .ui-resizable-nw {
+            border-radius: 100px;
+            border: solid 2px #f23c17;
+            cursor: se-resize;
+            background-color: #e3e3e3;
+            width: 12px;
+            height: 12px;
+            left: -8px;
+            top: -8px;
+        }
+
+        .ui-resizable-ne {
+            border-radius: 100px;
+            border: solid 2px #f23c17;
+            cursor: se-resize;
+            background-color: #e3e3e3;
+            width: 12px;
+            height: 12px;
+            right: -8px;
+            top: -8px;
+        }
+
     </style>
 </head>
   <body ng-app="angularRouterApp">
@@ -21,6 +102,8 @@
 
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7mnpaerzGyzDY0oRK2jPYjm9bYgaVzsY&sensor=false"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="bower_components/angular/angular.js"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->

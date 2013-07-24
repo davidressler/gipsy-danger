@@ -27,9 +27,47 @@
  * @author Nicolas Laplante https://plus.google.com/108189012221374960701
  */
 
+
+function AlertBoxOverlay(bounds, map) {
+
+	this.bounds_ = bounds;
+	this.map_ = map;
+
+	this.div_ = null;
+
+	this.setMap(map);
+
+}
+
+AlertBoxOverlay.prototype = new google.maps.OverlayView();
+AlertBoxOverlay.prototype.onAdd = function() {
+	var div = document.createElement('div');
+	div.className = 'alert-box-overlay';
+
+	this.div_ = div;
+
+	var panes = this.getPanes();
+	panes.overlayLayer.appendChild(div);
+
+};
+AlertBoxOverlay.prototype.draw = function() {
+	var overlayProjection = this.getProjection();
+
+	var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
+	var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+
+	var div = this.div_;
+	div.style.left = sw.x + 'px';
+	div.style.top = ne.y + 'px';
+	div.style.width = (ne.x - sw.x) + 'px';
+	div.style.height = (sw.y - ne.y) + 'px';
+
+};
+
+
+
 (function () {
-  
-  "use strict";
+
 
   /*
    * Utility functions
@@ -89,7 +127,7 @@
           
           // Create a new map instance
 
-
+		google.maps.visualRefresh = true;
 
           _instance = new google.maps.Map(that.selector, angular.extend(that.options, {
             center: that.center,
@@ -97,6 +135,60 @@
             draggable: that.draggable,
             mapTypeId : google.maps.MapTypeId.ROADMAP
           }));
+
+	        var alertBounds = new google.maps.LatLngBounds(
+		        new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
+		        new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
+	        );
+
+	        var alertBox = new google.maps.Rectangle({
+		        bounds: alertBounds,
+		        editable: true,
+		        strokeColor: '#F23C17',
+		        fillColor: '#FFF',
+		        strokeWeight: 2
+	        });
+
+	        alertBox.setMap(_instance);
+
+			var poly1;
+	        setTimeout(function () {
+		        function _calculateBounds() {
+			        var alertBounds = alertBox.getBounds();
+			        var mapBounds = _instance.getBounds();
+			        var bounds1 = [
+				        [
+					        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.b),
+					        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.b),
+					        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.d),
+					        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.d)
+				        ],
+				        [
+					        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.b),
+					        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.d),
+					        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.d),
+					        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.b)
+				        ]
+			        ];
+
+			        return bounds1;
+		        }
+
+
+		        var poly1 = new google.maps.Polygon({
+			        paths: _calculateBounds(),
+			        strokeWeight: 0
+		        });
+
+		        poly1.setMap(_instance);
+
+		        google.maps.event.addListener(alertBox, 'bounds_changed', function () {
+			        $('img[src$="undo_poly.png"]').hide();
+			        poly1.setPath(_calculateBounds());
+		        });
+
+	        }, 500);
+
 
           google.maps.event.addListener(_instance, "dragstart",
               

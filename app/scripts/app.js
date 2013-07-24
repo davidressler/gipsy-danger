@@ -6,7 +6,6 @@ app.run(function($rootScope, $location, $routeParams, Search) {
 	$rootScope.$on('$routeChangeSuccess', function () {
 
 		if($location.path() == '/search/map' || $location.path() == '/search/list') {
-			console.log('route change success', $routeParams);
 			Search.setSearch($routeParams);
 		}
 
@@ -14,12 +13,28 @@ app.run(function($rootScope, $location, $routeParams, Search) {
 
 	$rootScope.$on('$routeUpdate', function() {
 		if ($location.path() == '/search/map' || $location.path() == '/search/list') {
-			console.log('route update', $routeParams);
 			Search.setSearch($routeParams);
 		}
 	})
 });
 
+app.directive('alertBox', function() {
+	return {
+		restrict: 'EA',
+		template: '<div class="alert-box-overlay"></div><div class="alert-box"><span></span></div>',
+		link: function(scope, element, attrs) {
+			console.log();
+			element.children().eq(1).resizable({
+				handles: 'ne, se, sw, nw',
+				alsoResize: '.alert-box span',
+				minHeight: 100,
+				minWidth: 100
+			});
+
+
+		}
+	}
+});
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -95,4 +110,4 @@ app.factory('Search', function($rootScope) {
 		getSearch: getSearch,
 		setSearch: setSearch
 	}
-})
+});
