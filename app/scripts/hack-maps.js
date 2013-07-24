@@ -136,58 +136,58 @@ AlertBoxOverlay.prototype.draw = function() {
             mapTypeId : google.maps.MapTypeId.ROADMAP
           }));
 
-	        var alertBounds = new google.maps.LatLngBounds(
-		        new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
-		        new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
-	        );
-
-	        var alertBox = new google.maps.Rectangle({
-		        bounds: alertBounds,
-		        editable: true,
-		        strokeColor: '#F23C17',
-		        fillColor: '#FFF',
-		        strokeWeight: 2
-	        });
-
-	        alertBox.setMap(_instance);
-
-			var poly1;
-	        setTimeout(function () {
-		        function _calculateBounds() {
-			        var alertBounds = alertBox.getBounds();
-			        var mapBounds = _instance.getBounds();
-			        var bounds1 = [
-				        [
-					        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.b),
-					        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.b),
-					        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.d),
-					        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.d)
-				        ],
-				        [
-					        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.b),
-					        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.d),
-					        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.d),
-					        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.b)
-				        ]
-			        ];
-
-			        return bounds1;
-		        }
-
-
-		        var poly1 = new google.maps.Polygon({
-			        paths: _calculateBounds(),
-			        strokeWeight: 0
-		        });
-
-		        poly1.setMap(_instance);
-
-		        google.maps.event.addListener(alertBox, 'bounds_changed', function () {
-			        $('img[src$="undo_poly.png"]').hide();
-			        poly1.setPath(_calculateBounds());
-		        });
-
-	        }, 500);
+//	        var alertBounds = new google.maps.LatLngBounds(
+//		        new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
+//		        new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
+//	        );
+//
+//	        var alertBox = new google.maps.Rectangle({
+//		        bounds: alertBounds,
+//		        editable: true,
+//		        strokeColor: '#F23C17',
+//		        fillColor: '#FFF',
+//		        strokeWeight: 2
+//	        });
+//
+//	        alertBox.setMap(_instance);
+//
+//			var poly1;
+//	        setTimeout(function () {
+//		        function _calculateBounds() {
+//			        var alertBounds = alertBox.getBounds();
+//			        var mapBounds = _instance.getBounds();
+//			        var bounds1 = [
+//				        [
+//					        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.b),
+//					        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.b),
+//					        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.d),
+//					        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.d)
+//				        ],
+//				        [
+//					        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.b),
+//					        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.d),
+//					        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.d),
+//					        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.b)
+//				        ]
+//			        ];
+//
+//			        return bounds1;
+//		        }
+//
+//
+//		        var poly1 = new google.maps.Polygon({
+//			        paths: _calculateBounds(),
+//			        strokeWeight: 0
+//		        });
+//
+//		        poly1.setMap(_instance);
+//
+//		        google.maps.event.addListener(alertBox, 'bounds_changed', function () {
+//			        $('img[src$="undo_poly.png"]').hide();
+//			        poly1.setPath(_calculateBounds());
+//		        });
+//
+//	        }, 500);
 
 
           google.maps.event.addListener(_instance, "dragstart",

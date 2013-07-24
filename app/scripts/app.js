@@ -21,14 +21,46 @@ app.run(function($rootScope, $location, $routeParams, Search) {
 app.directive('alertBox', function() {
 	return {
 		restrict: 'EA',
-		template: '<div class="alert-box-overlay"></div><div class="alert-box"><span></span></div>',
+		templateUrl: 'views/alert-box.html',
 		link: function(scope, element, attrs) {
-			console.log();
-			element.children().eq(1).resizable({
+			var alertBox = element.children().eq(1);
+			var ogTop = alertBox.position().top;
+			var ogLeft = alertBox.position().left;
+
+			alertBox.resizable({
 				handles: 'ne, se, sw, nw',
-				alsoResize: '.alert-box span',
 				minHeight: 100,
-				minWidth: 100
+				minWidth: 100,
+				resize: function (event, ui) {
+					var width = ui.element.width();
+					var height = ui.element.height();
+					var overlay = element.children().eq(0);
+					var uiElement = ui.element;
+					var mapHeight = 1000;
+					var mapWidth = 1000;
+
+					overlay.width(width);
+					overlay.height(height);
+
+					if(uiElement.position().top == ogTop ) {
+						var newBottom = mapHeight - height - parseInt(overlay.css('border-top-width'));
+						overlay.css('border-bottom-width', newBottom + 'px');
+					}else {
+						var newTop = mapHeight - height - parseInt(overlay.css('border-bottom-width'));
+						overlay.css('border-top-width', newTop + 'px');
+					}
+
+					if (uiElement.position().left == ogLeft) {
+						var newRight = mapWidth - width - parseInt(overlay.css('border-left-width'));
+						overlay.css('border-right-width', newRight + 'px');
+					} else {
+						var newLeft = mapWidth - width - parseInt(overlay.css('border-right-width'));
+						overlay.css('border-left-width', newLeft + 'px');
+					}
+
+					ogTop = uiElement.position().top;
+					ogLeft = uiElement.position().left;
+				}
 			});
 
 
