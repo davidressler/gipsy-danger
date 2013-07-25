@@ -23,21 +23,22 @@ app.directive('alertBox', function() {
 		restrict: 'EA',
 		templateUrl: 'views/alert-box.html',
 		link: function(scope, element, attrs) {
-			var alertBox = element.children().eq(1);
+			var alertBox = element.children().eq(1).children();
 			var ogTop = alertBox.position().top;
 			var ogLeft = alertBox.position().left;
+			var mapHeight = 1000;
+			var mapWidth = 1000;
 
 			alertBox.resizable({
 				handles: 'ne, se, sw, nw',
 				minHeight: 100,
 				minWidth: 100,
+				containment: 'parent',
 				resize: function (event, ui) {
-					var width = ui.element.width();
-					var height = ui.element.height();
+					var width = ui.element.width() + 2;
+					var height = ui.element.height() + 2;
 					var overlay = element.children().eq(0);
 					var uiElement = ui.element;
-					var mapHeight = 1000;
-					var mapWidth = 1000;
 
 					overlay.width(width);
 					overlay.height(height);

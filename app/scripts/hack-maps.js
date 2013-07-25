@@ -28,43 +28,58 @@
  */
 
 
-function AlertBoxOverlay(bounds, map) {
+//function AlertBoxOverlay(bounds, map) {
+//
+//	this.bounds_ = bounds;
+//	this.map_ = map;
+//
+//	this.div_ = null;
+//
+//	this.setMap(map);
+//
+//}
+//
+//AlertBoxOverlay.prototype = new google.maps.OverlayView();
+//AlertBoxOverlay.prototype.onAdd = function() {
+//	var div = document.createElement('div');
+//	div.className = 'alert-box-overlay';
+//
+//	this.div_ = div;
+//
+//	var panes = this.getPanes();
+//	panes.overlayLayer.appendChild(div);
+//
+//};
+//AlertBoxOverlay.prototype.draw = function() {
+//	var overlayProjection = this.getProjection();
+//
+//	var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
+//	var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+//
+//	var div = this.div_;
+//	div.style.left = sw.x + 'px';
+//	div.style.top = ne.y + 'px';
+//	div.style.width = (ne.x - sw.x) + 'px';
+//	div.style.height = (sw.y - ne.y) + 'px';
+//
+//};
 
-	this.bounds_ = bounds;
-	this.map_ = map;
+    //--Google Maps Overlay Hack--//
+    //--CLEAN UP YOUR API GOOGLE!--//
+    function ProjectionHelperOverlay(map) {
+        google.maps.OverlayView.call(this);
+        this.setMap(map);
+    }
 
-	this.div_ = null;
-
-	this.setMap(map);
-
-}
-
-AlertBoxOverlay.prototype = new google.maps.OverlayView();
-AlertBoxOverlay.prototype.onAdd = function() {
-	var div = document.createElement('div');
-	div.className = 'alert-box-overlay';
-
-	this.div_ = div;
-
-	var panes = this.getPanes();
-	panes.overlayLayer.appendChild(div);
-
-};
-AlertBoxOverlay.prototype.draw = function() {
-	var overlayProjection = this.getProjection();
-
-	var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
-	var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
-
-	var div = this.div_;
-	div.style.left = sw.x + 'px';
-	div.style.top = ne.y + 'px';
-	div.style.width = (ne.x - sw.x) + 'px';
-	div.style.height = (sw.y - ne.y) + 'px';
-
-};
-
-
+ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
+		ProjectionHelperOverlay.prototype.onAdd = function() {}
+		ProjectionHelperOverlay.prototype.onRemove = function() {}
+		ProjectionHelperOverlay.prototype.draw = function () {
+//			if (!this.ready) {
+//				this.ready = true;
+//				google.maps.event.trigger(this, 'ready');
+//			}
+		};
 
 (function () {
 
@@ -136,6 +151,44 @@ AlertBoxOverlay.prototype.draw = function() {
             mapTypeId : google.maps.MapTypeId.ROADMAP
           }));
 
+
+	        setTimeout(function() {
+//		        var overlay = new google.maps.OverlayView();
+//		        overlay.draw = function () {
+//		        };
+//		        overlay.setMap(_instance);
+//		        console.log(overlay.getProjection());
+//
+//		        var coordinates = overlay.getProjection().fromContainerPixelToLatLng(
+//			        new google.maps.Point(92, 61)
+//		        );
+//
+//		        console.log(coordinates.lat + ", " + coordinates.lng);
+
+
+
+	        }, 1000);
+
+	        var hackProjection;
+
+	        google.maps.event.addListener(_instance, 'tilesloaded', function () {
+
+		        hackProjection = new ProjectionHelperOverlay(_instance);
+
+		        console.log(_instance.getMapTypeId());
+
+		        console.log(hackProjection);
+		        console.log(hackProjection.getProjection());
+	        });
+
+	        google.maps.event.addListener(_instance, 'idle', function () {
+
+//		        hackProjection = new ProjectionHelperOverlay(_instance);
+
+
+	        });
+
+
 //	        var alertBounds = new google.maps.LatLngBounds(
 //		        new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
 //		        new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
@@ -190,6 +243,8 @@ AlertBoxOverlay.prototype.draw = function() {
 //	        }, 500);
 
 
+
+
           google.maps.event.addListener(_instance, "dragstart",
               
               function () {
@@ -235,6 +290,120 @@ AlertBoxOverlay.prototype.draw = function() {
                   h.on, h.handler);
             });
           }
+
+//			    var mapLat = _instance.getBounds().ba.d;
+//		        var mapLon = _instance.getBounds().fa.b;
+//
+//		        console.log('mapLat', mapLat);
+//		        console.log('mapLon', mapLon);
+//
+//
+//
+//		        var alertBox = $('.alert-box');
+//		        var mapOffset = $('.angular-google-map').offset();
+//		        var alertOffset = alertBox.offset();
+//
+//		        function newLat(lat, left, left2) {
+//			        return (lat * left2) / left;
+//		        }
+//
+//		        function newLon(alertTop, mapLon, mapTop) {
+//			        return (alertTop * mapLon) / mapTop;
+//		        }
+//
+//		        var alertNwLat = newLat(mapLat, mapOffset.left, alertOffset.left);
+//		        var alertSeLat = newLat(mapLat, mapOffset.left, alertOffset.left + alertBox.width());
+//		        var alertNwLon = newLon(alertOffset.top, mapLon, mapOffset.top);
+//		        var alertSeLon = newLon(alertOffset.top + alertBox.height(), mapLon, mapOffset.top);
+//
+//
+//				console.log(alertNwLat);
+//		        console.log(alertSeLat);console.log(alertNwLon);console.log(alertSeLon);
+
+
+//		        var alertBounds = new google.maps.LatLngBounds(
+//			        new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
+//			        new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
+//		        );
+//
+//		        var alertBox = new google.maps.Rectangle({
+//			        bounds: alertBounds,
+//			        editable: true,
+//			        strokeColor: '#F23C17',
+//			        fillColor: '#FFF',
+//			        strokeWeight: 2
+//		        });
+//
+//		        alertBox.setMap(_instance);
+
+
+//			        function _calculateBounds() {
+//				        var mapBounds = _instance.getBounds();
+//				        var alertBounds = alertBox.getBounds();
+//				        var bounds1 = [
+//					        [
+//						        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.b),
+//						        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.b),
+//						        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.d),
+//						        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.d)
+//					        ],
+//					        [
+//						        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.b),
+//						        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.d),
+//						        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.d),
+//						        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.b)
+//					        ]
+//				        ];
+//				        return bounds1;
+//			        }
+//
+//
+//
+//			        //		        var bounds2 = [
+//			        //			        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.b),
+//			        //			        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.b),
+//			        //			        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.b),
+//			        //			        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.b)
+//			        //		        ];
+//
+//			        var poly1 = new google.maps.Polygon({
+//				        paths: _calculateBounds(),
+//				        strokeWeight: 0
+//			        });
+//
+//			        //		        var poly2 = new google.maps.Polygon({
+//			        //			        paths: bounds2,
+//			        //			        strokeWeight: 0
+//			        //		        });
+//
+//			        poly1.setMap(_instance);
+//			        //		        poly2.setMap(_instance);
+//
+//					var mapBounds = _instance.getBounds();
+//					google.maps.event.addListener(_instance, 'dragstart', function() {
+//
+//						var map = _instance.getBounds();
+//						var alert = alertBox.getBounds();
+//
+//						var newBounds = new google.maps.LatLngBounds(
+//							new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
+//							new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
+//						);
+//
+//			        });
+//			        google.maps.event.addListener(_instance, 'dragend', function () {
+//				        mapBounds = _instance.getBounds();
+//			        });
+//
+//			        google.maps.event.addListener(alertBox, 'bounds_changed', function () {
+//				        $('img[src$="undo_poly.png"]').hide();
+//				        poly1.setPaths(_calculateBounds());
+//			        });
+//
+//		        }, 500);
+
+
+
         }
         else {
           
