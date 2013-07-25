@@ -61,7 +61,14 @@ app.directive('alertBox', function() {
 
 					ogTop = uiElement.position().top;
 					ogLeft = uiElement.position().left;
+
+				},
+				stop: function() {
+					google.maps.event.trigger(hackProjection, 'resize');
 				}
+//				create: function() {
+//					google.maps.event.trigger(hackProjection, 'resize');
+//				}
 			});
 
 
@@ -100,8 +107,8 @@ app.config(function ($routeProvider) {
 
 app.factory('Search', function($rootScope) {
 	var search = {
-		zoom: 1,
-		center: [36, -122]
+		zoom: 12,
+		center: [36.47794353080107, -121.55574035644531]
 	};
 
 	var validParams = function(params) {
