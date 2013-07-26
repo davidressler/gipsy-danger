@@ -1,6 +1,11 @@
 'use strict';
 
-var app = angular.module('angularRouterApp', ['google-maps']);
+var dependencies = [
+	'google-maps',
+	'ClusterMod'
+];
+
+var app = angular.module('angularRouterApp', dependencies);
 
 app.run(function($rootScope, $location, $routeParams, Search) {
 	$rootScope.$on('$routeChangeSuccess', function () {
