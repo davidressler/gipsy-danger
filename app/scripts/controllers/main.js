@@ -25,6 +25,7 @@
 		 }
 
 	 }
+
 	 SetTemplate();
 
 	$scope.$on('SearchUpdated', function () {

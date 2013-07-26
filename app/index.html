@@ -20,7 +20,7 @@
 
             border-left: solid 345px #333;
             border-right: solid 355px #333;
-
+            display:none;
             pointer-events: none;
             opacity: 0.5;
             position: absolute;
@@ -35,9 +35,11 @@
             height: 1000px;
             position: absolute;
             top:45px;
+            display:none;
         }
 
         .alert-box{
+            display: none;
             position: absolute;
             pointer-events:none;
             border: solid 2px #f23c17;
@@ -104,6 +106,79 @@
             right: -8px;
             top: -8px;
             pointer-events: auto;
+        }
+
+        .cluster {
+            border-radius: 1000px;
+            width: 30px;
+            height: 30px;
+            color: white;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, .15);
+            cursor: pointer;
+
+            /* Don't allow user to select anything in the cluster */
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -o-user-select: none;
+
+            /* Transitions */
+            -webkit-transition: background-color 0.2s linear;
+            -moz-transition: background-color 0.2s linear;
+            -ms-transition: background-color 0.2s linear;
+            -o-transition: background-color 0.2s linear;
+            transition: background-color 0.2s linear;
+        }
+
+        .cluster > span {
+            line-height: 30px;
+        }
+
+        .cluster-bg {
+            border-radius: 1000px;
+            width: 32px;
+            height: 32px;
+            padding: 6px 6px 6px 6px;
+            background-color: rgba(0, 0, 0, .15);
+
+            /* Transitions */
+            -webkit-transition: padding 0.2s linear, background-color 0.2s linear;
+            -moz-transition: padding 0.2s linear, background-color 0.2s linear;
+            -ms-transition: padding 0.2s linear, background-color 0.2s linear;
+            -o-transition: padding 0.2s linear, background-color 0.2s linear;
+            transition: padding 0.2s linear, background-color 0.2s linear;
+        }
+
+        .cluster-bg:hover,
+        .cluster-bg:active {
+            padding: 10px 10px;
+            background-color: rgba(50, 50, 50, 0.45);
+        }
+
+        .cluster-bg:hover .cluster,
+        .cluster-bg:active .cluster {
+            background-color: rgba(52, 52, 52, 1.0);
+            border: 1px solid rgba(0, 0, 0, 1.0);
+        }
+
+            /* ==========================================================================
+               Specific Clusters
+               ========================================================================== */
+        .cluster-fresh {
+            background-color: rgba(235, 86, 53, 1.0);
+        }
+
+        .cluster-favorite {
+            background-color: rgba(246, 201, 80, 1.0);
+        }
+
+        .cluster-unviewed {
+            background-color: rgba(85, 151, 183, 1.0);
+        }
+
+        .cluster-viewed {
+            background-color: rgba(158, 158, 158, 1.0);
         }
 
     </style>

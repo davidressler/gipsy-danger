@@ -68,19 +68,69 @@ var ready = false;
     //--Google Maps Overlay Hack--//
     //--CLEAN UP YOUR API GOOGLE!--//
     function ProjectionHelperOverlay(map) {
+	    console.log(this);
         google.maps.OverlayView.call(this);
+//	    console.log(this.setMap);
+	    console.log(this);
         this.setMap(map);
     }
 
 ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
-		ProjectionHelperOverlay.prototype.onAdd = function() {}
-		ProjectionHelperOverlay.prototype.onRemove = function() {}
+		ProjectionHelperOverlay.prototype.onAdd = function() {};
+		ProjectionHelperOverlay.prototype.onRemove = function() {};
 		ProjectionHelperOverlay.prototype.draw = function () {
 			if (!ready) {
 				ready = true;
 				google.maps.event.trigger(this, 'ready');
 			}
 		};
+
+function ClusterHelperOverlay(bounds, map){
+	this.bounds_ = bounds;
+	this.map = map;
+
+	this.div_ = null;
+	google.maps.OverlayView.call(this);
+	console.log(this);
+	this.setMap(map);
+
+}
+ClusterHelperOverlay.prototype = new google.maps.OverlayView();
+ClusterHelperOverlay.prototype.onAdd = function () {
+				this.div_ = document.createElement('div');
+		        this.div_.className = 'cluster-bg';
+
+		        var innerDiv = document.createElement('div');
+		        innerDiv.className = 'cluster cluster-fresh';
+//		        div.appendChild(innerDiv);
+
+		        var span = document.createElement('span');
+		        span.innerHTML = '4';
+		        innerDiv.appendChild(span);
+		        this.div_.appendChild(innerDiv);
+
+		        var panes = this.getPanes();
+		        panes.overlayMouseTarget.appendChild(this.div_);
+
+	        };
+ClusterHelperOverlay.prototype.draw = function() {
+		        var overlayProjection = this.getProjection();
+
+		        var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
+		        var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+//				this.div_.style.left = '0px';
+//				this.div_.style.top = '0px';
+//	this.div_.style.width = '25px';
+//	this.div_.style.height = '25px';
+//	this.div_.style.background = 'red';
+	        };
+
+ClusterHelperOverlay.prototype.onRemove = function() {
+		        this.div_.parentNode.removeChild(this.div_);
+		        this.div_ = null;
+	        };
+
+
 
 (function () {
 
@@ -149,7 +199,8 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
             center: that.center,
             zoom: that.zoom,
             draggable: that.draggable,
-            mapTypeId : google.maps.MapTypeId.ROADMAP
+            mapTypeId : google.maps.MapTypeId.ROADMAP,
+	        disableDefaultUI: true
           }));
 
 
@@ -170,6 +221,9 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 
 	        }, 1000);
 
+
+
+
 			var rect;
 
 	        hackProjection = new ProjectionHelperOverlay(_instance);
@@ -185,13 +239,29 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 			        strokeColor: 'green'
 		        });
 
-		        rect.setMap(_instance);
+//		        rect.setMap(_instance);
+
+
+
+		        for(var i=0; i < 25; i++) {
+			        var num = Math.random();
+			        var clusterBounds = new google.maps.LatLngBounds(
+				        new google.maps.LatLng(opts.center.jb - num, opts.center.kb - num),
+				        new google.maps.LatLng(opts.center.jb + num, opts.center.kb + num)
+			        );
+
+			        var cluster = new ClusterHelperOverlay(clusterBounds, _instance);
+		        }
+
+
 
 	        });
 
+
+
+
 	        function _calculateBounds() {
 		        var alertBox = $('.alert-box');
-		        console.log(alertBox.position());
 
 		        var neAlertTop = alertBox.position().top;
 		        var neAlertLeft = alertBox.position().left + alertBox.width() + 2;
@@ -205,9 +275,6 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 		        var sw = hackProjection.getProjection().fromContainerPixelToLatLng(
 			        new google.maps.Point(swAlertLeft, swAlertTop)
 		        );
-
-		        console.log(ne);
-		        console.log(sw);
 
 		        var alertBounds = new google.maps.LatLngBounds(
 			        new google.maps.LatLng(sw.jb, sw.kb),
@@ -224,6 +291,8 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 
 	        google.maps.event.addListener(_instance, 'idle', function() {
 		        rect.setBounds(_calculateBounds());
+
+
 	        });
 
 
