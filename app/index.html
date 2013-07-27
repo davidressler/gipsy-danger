@@ -148,12 +148,14 @@
             -moz-transition: padding 0.2s linear, background-color 0.2s linear;
             -ms-transition: padding 0.2s linear, background-color 0.2s linear;
             -o-transition: padding 0.2s linear, background-color 0.2s linear;
-            transition: padding 0.2s linear, background-color 0.2s linear;
+            transition: margin 0.2s linear, padding 0.2s linear, background-color 0.2s linear;
         }
 
         .cluster-bg:hover,
         .cluster-bg:active {
             padding: 10px 10px;
+            margin-left: -4px;
+            margin-top: -4px;
             background-color: rgba(50, 50, 50, 0.45);
         }
 
@@ -199,6 +201,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/cluster.js"></script>
+    <script src="scripts/searchitems.js"></script>
     <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->

@@ -756,13 +756,25 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 
           _m.on("idle", function () {
               $timeout(function () {
-	              console.log('fuckkkk');
+	              var num = Math.random();
 	              var data = [];
 	              for(var i=0; i < 25; i++){
 		              var result = {};
 		              result['c'] = i;
-		              result['la'] = _m.center.lat() - (i*0.01);
-		              result['ln'] = _m.center.lng() + (i*0.01);
+		              if(i % 2 == 0) {
+			              result['la'] = _m.center.lat() - (i * 0.01);
+
+		              }else {
+			              result['la'] = _m.center.lat() + (i * 0.01);
+
+		              }
+
+		              if(i % 3 == 0) {
+			              result['ln'] = _m.center.lng() - (i * 0.01);
+		              } else {
+			              result['ln'] = _m.center.lng() + (i * 0.01);
+		              }
+
 		              result['l'] = [];
 		              data.push(result);
 

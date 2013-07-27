@@ -12,6 +12,34 @@ cluster.factory('ClusterFact', function($rootScope) {
 	var clusters = [];
 
 	/* Private Functions */
+	function _clearMap() {
+		for(var i=0; i < clusters.length; i++) {
+			clusters[i].setMap(null);
+		}
+		clusters = [];
+	}
+
+
+	/* Public Functions */
+	var createClusters = function(clusterDict, map) {
+		_clearMap();
+		for(var i=0; i < clusterDict.length; i++) {
+			clusters.push(new Cluster(clusterDict[i], map));
+		}
+	};
+
+	var getClusters = function() {
+		return clusters;
+	};
+
+	return {
+		getClusters: getClusters,
+		createClusters: createClusters
+	}
+
+});
+
+//TODO: PUT OBJECT IN SEPARATE FILE
 	function Cluster(data, map){
 		this._count = data['c'];
 		this._center = new google.maps.LatLng(data["la"], data["ln"]);
@@ -60,32 +88,3 @@ cluster.factory('ClusterFact', function($rootScope) {
 	Cluster.prototype.show = function () {
 		this.setMap(this._map);
 	};
-
-	function _clearMap() {
-		for(var i=0; i < clusters.length; i++) {
-			clusters[i].setMap(null);
-		}
-		clusters = [];
-	}
-
-
-	/* Public Functions */
-	var createClusters = function(clusterDict, map) {
-		_clearMap();
-		console.log(map);
-		for(var i=0; i < clusterDict.length; i++) {
-			clusters.push(new Cluster(clusterDict[i], map));
-		}
-	};
-
-	var getClusters = function() {
-		return clusters;
-	};
-
-	return {
-		getClusters: getClusters,
-		createClusters: createClusters
-	}
-
-});
-
