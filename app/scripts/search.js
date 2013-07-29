@@ -44,7 +44,7 @@ function Search() {
 /********************/
 /** Search Factory **/
 /********************/
-searchMod.factory('SearchFact', function() {
+searchMod.factory('SearchFact', function($rootScope) {
 	/* Variables */
 	var search = new Search();
 	var typeDict = {
@@ -73,16 +73,10 @@ searchMod.factory('SearchFact', function() {
 	/* Private Functions */
 	function _urlToSearch(params) {
 		for (var param in params) {
-			if (typeDict.hasOwnProperty(param)) {
-				if (typeDict[param] === 'bool') {
-					search[urlDict[params.param]] = params.param === 't' || params.param === 'true';
-				} else if (typeDict[param] === 'int') {
-					var num = parseInt(params.param);
-					if (!isNaN(num)) search[urlDict[params.param]] = num;
-				} else if (typeDict[param] === 'intList') {
-					var list = params.param.split(',');
-					for(var )
-				}
+			// Check if param is even one we're supposed to be checking for
+			if (urlDict.hasOwnProperty(param)) {
+				var value = params[param];
+				search[urlDict[value]] = $rootScope.Bottomless.scrubByType(typeDict[param], value);
 			}
 
 		}

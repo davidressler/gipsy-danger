@@ -2,12 +2,17 @@
 
 var dependencies = [
 	'google-maps',
-	'ClusterMod'
+	'ClusterMod',
+	'BottomlessJS'
 ];
 
 var app = angular.module('angularRouterApp', dependencies);
 
-app.run(function($rootScope, $location, $routeParams, Search) {
+app.run(function($rootScope, $location, $routeParams, Search, Bottomless) {
+
+	/* Scope Variables
+	********************/
+	$rootScope.Bottomless = Bottomless;
 
 	/* Route Changes */
 	$rootScope.$on('$routeChangeSuccess', function () {
