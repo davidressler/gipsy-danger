@@ -55,25 +55,6 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="DockManager">
-    <window id="3">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/app/scripts/controllers/main.js">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state line="31" column="43" selection-start="760" selection-end="760" vertical-scroll-proportion="0.54259044">
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="angular_router" />
@@ -592,7 +573,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/controllers/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="43" selection-start="760" selection-end="760" vertical-scroll-proportion="0.54259044">
+        <state line="24" column="10" selection-start="655" selection-end="655" vertical-scroll-proportion="0.42007002">
           <folding />
         </state>
       </provider>
