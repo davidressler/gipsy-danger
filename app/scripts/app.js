@@ -8,13 +8,15 @@ var dependencies = [
 var app = angular.module('angularRouterApp', dependencies);
 
 app.run(function($rootScope, $location, $routeParams, Search) {
+
+	/* Route Changes */
 	$rootScope.$on('$routeChangeSuccess', function () {
 
 		if($location.path() == '/search/map' || $location.path() == '/search/list') {
 			Search.setSearch($routeParams);
 		}
 
-	})
+	});
 
 	$rootScope.$on('$routeUpdate', function() {
 		if ($location.path() == '/search/map' || $location.path() == '/search/list') {
@@ -101,7 +103,7 @@ app.config(function ($routeProvider) {
 		    controller: 'MainCtrl',
 		    reloadOnSearch: false
 	    })
-	    .when('/search/poop', {
+	    .when('/search/grid', {
 		    templateUrl: 'views/search.html',
 		    controller: 'MainCtrl'
 	    })

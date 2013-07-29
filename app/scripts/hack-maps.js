@@ -342,6 +342,33 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
                   that.center = _instance.getCenter();
               }
           );
+
+	      google.maps.event.addListener(_instance, "getAlertBounds",
+
+		      function () {
+			    var alertBox = $('.alert-box');
+                var mapOffset = $('.angular-google-map').offset();
+                var alertOffset = alertBox.offset();
+
+                function newLat(lat, left, left2) {
+                    return (lat * left2) / left;
+                }
+
+                function newLon(alertTop, mapLon, mapTop) {
+                    return (alertTop * mapLon) / mapTop;
+                }
+
+                var alertNwLat = newLat(mapLat, mapOffset.left, alertOffset.left);
+                var alertSeLat = newLat(mapLat, mapOffset.left, alertOffset.left + alertBox.width());
+                var alertNwLon = newLon(alertOffset.top, mapLon, mapOffset.top);
+                var alertSeLon = newLon(alertOffset.top + alertBox.height(), mapLon, mapOffset.top);
+
+
+                return [alertNwLat, alertNwLon, alertNwLon, alertSeLon];
+			      // TODO: DOES THIS WORK? WHO KNOWS
+			    //TODO: DO SOMETHING HERE PROBABLY ON ROOTSCOPE CAUSE EVERYTHING IS A MODULE FUCK
+		      }
+	      );
           
           // Attach additional event listeners if needed
           if (_handlers.length) {
@@ -756,6 +783,8 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 
           _m.on("idle", function () {
               $timeout(function () {
+
+	              //TODO: BULLSHIT CLUSTER STUFF
 	              var num = Math.random();
 	              var data = [];
 	              for(var i=0; i < 25; i++){

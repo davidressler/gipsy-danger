@@ -21,6 +21,11 @@ authentication.directive('LoginDir', function() {
 
 authentication.controller('LoginCtrl', function($scope) {
 
+	/* Scope Functions */
+	$scope.login = function () {
+
+	};
+
 });
 
 /******************************/
@@ -39,5 +44,10 @@ authentication.directive('CreateAccountDir', function() {
 });
 
 authentication.controller('CreateAccountCtrl', function($scope) {
+
+	/* Scope Functions */
+	$scope.createAccount = function () {
+
+	};
 
 });

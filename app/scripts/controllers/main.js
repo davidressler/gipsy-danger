@@ -10,7 +10,7 @@
 	 };
 
 	 $scope.templates = [
-		 {path: '/search/poop', url: 'views/b.html'},
+		 {path: '/search/grid', url: 'views/b.html'},
 		 {path: '/search/list', url: 'views/a.html'},
 		 {path: '/search/map', url: 'views/map.html'}
 	 ];
