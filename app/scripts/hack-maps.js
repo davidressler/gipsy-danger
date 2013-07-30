@@ -99,122 +99,6 @@
 
 	        this.map = _instance;
 
-
-	        setTimeout(function() {
-//		        var overlay = new google.maps.OverlayView();
-//		        overlay.draw = function () {
-//		        };
-//		        overlay.setMap(_instance);
-//		        console.log(overlay.getProjection());
-//
-//		        var coordinates = overlay.getProjection().fromContainerPixelToLatLng(
-//			        new google.maps.Point(92, 61)
-//		        );
-//
-//		        console.log(coordinates.lat + ", " + coordinates.lng);
-
-
-
-	        }, 1000);
-
-
-
-
-//	        function _calculateBounds() {
-//		        var alertBox = $('.alert-box');
-//
-//		        var neAlertTop = alertBox.position().top;
-//		        var neAlertLeft = alertBox.position().left + alertBox.width() + 2;
-//		        var swAlertTop = alertBox.position().top + alertBox.height() + 2;
-//		        var swAlertLeft = alertBox.position().left;
-//
-//		        var ne = hackProjection.getProjection().fromContainerPixelToLatLng(
-//			        new google.maps.Point(neAlertLeft, neAlertTop)
-//		        );
-//
-//		        var sw = hackProjection.getProjection().fromContainerPixelToLatLng(
-//			        new google.maps.Point(swAlertLeft, swAlertTop)
-//		        );
-//
-//		        var alertBounds = new google.maps.LatLngBounds(
-//			        new google.maps.LatLng(sw.jb, sw.kb),
-//			        new google.maps.LatLng(ne.jb, ne.kb)
-//		        );
-//
-//		        return alertBounds;
-//	        }
-//
-//	        google.maps.event.addListener(hackProjection, 'resize', function() {
-//		        rect.setBounds(_calculateBounds());
-//	        });
-//
-//
-//	        google.maps.event.addListener(_instance, 'idle', function() {
-//		        rect.setBounds(_calculateBounds());
-//
-//
-//	        });
-
-
-
-
-
-//	        var alertBounds = new google.maps.LatLngBounds(
-//		        new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
-//		        new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
-//	        );
-//
-//	        var alertBox = new google.maps.Rectangle({
-//		        bounds: alertBounds,
-//		        editable: true,
-//		        strokeColor: '#F23C17',
-//		        fillColor: '#FFF',
-//		        strokeWeight: 2
-//	        });
-//
-//	        alertBox.setMap(_instance);
-//
-//			var poly1;
-//	        setTimeout(function () {
-//		        function _calculateBounds() {
-//			        var alertBounds = alertBox.getBounds();
-//			        var mapBounds = _instance.getBounds();
-//			        var bounds1 = [
-//				        [
-//					        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.b),
-//					        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.b),
-//					        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.d),
-//					        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.d)
-//				        ],
-//				        [
-//					        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.b),
-//					        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.d),
-//					        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.d),
-//					        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.b)
-//				        ]
-//			        ];
-//
-//			        return bounds1;
-//		        }
-//
-//
-//		        var poly1 = new google.maps.Polygon({
-//			        paths: _calculateBounds(),
-//			        strokeWeight: 0
-//		        });
-//
-//		        poly1.setMap(_instance);
-//
-//		        google.maps.event.addListener(alertBox, 'bounds_changed', function () {
-//			        $('img[src$="undo_poly.png"]').hide();
-//			        poly1.setPath(_calculateBounds());
-//		        });
-//
-//	        }, 500);
-
-
-
-
           google.maps.event.addListener(_instance, "dragstart",
               
               function () {
@@ -251,32 +135,6 @@
               }
           );
 
-	      google.maps.event.addListener(_instance, "getAlertBounds",
-
-		      function () {
-			    var alertBox = $('.alert-box');
-                var mapOffset = $('.angular-google-map').offset();
-                var alertOffset = alertBox.offset();
-
-                function newLat(lat, left, left2) {
-                    return (lat * left2) / left;
-                }
-
-                function newLon(alertTop, mapLon, mapTop) {
-                    return (alertTop * mapLon) / mapTop;
-                }
-
-                var alertNwLat = newLat(mapLat, mapOffset.left, alertOffset.left);
-                var alertSeLat = newLat(mapLat, mapOffset.left, alertOffset.left + alertBox.width());
-                var alertNwLon = newLon(alertOffset.top, mapLon, mapOffset.top);
-                var alertSeLon = newLon(alertOffset.top + alertBox.height(), mapLon, mapOffset.top);
-
-
-                return [alertNwLat, alertNwLon, alertNwLon, alertSeLon];
-			      // TODO: DOES THIS WORK? WHO KNOWS
-			    //TODO: DO SOMETHING HERE PROBABLY ON ROOTSCOPE CAUSE EVERYTHING IS A MODULE FUCK
-		      }
-	      );
           
           // Attach additional event listeners if needed
           if (_handlers.length) {
@@ -287,119 +145,6 @@
                   h.on, h.handler);
             });
           }
-
-//			    var mapLat = _instance.getBounds().ba.d;
-//		        var mapLon = _instance.getBounds().fa.b;
-//
-//		        console.log('mapLat', mapLat);
-//		        console.log('mapLon', mapLon);
-//
-//
-//
-//		        var alertBox = $('.alert-box');
-//		        var mapOffset = $('.angular-google-map').offset();
-//		        var alertOffset = alertBox.offset();
-//
-//		        function newLat(lat, left, left2) {
-//			        return (lat * left2) / left;
-//		        }
-//
-//		        function newLon(alertTop, mapLon, mapTop) {
-//			        return (alertTop * mapLon) / mapTop;
-//		        }
-//
-//		        var alertNwLat = newLat(mapLat, mapOffset.left, alertOffset.left);
-//		        var alertSeLat = newLat(mapLat, mapOffset.left, alertOffset.left + alertBox.width());
-//		        var alertNwLon = newLon(alertOffset.top, mapLon, mapOffset.top);
-//		        var alertSeLon = newLon(alertOffset.top + alertBox.height(), mapLon, mapOffset.top);
-//
-//
-//				console.log(alertNwLat);
-//		        console.log(alertSeLat);console.log(alertNwLon);console.log(alertSeLon);
-
-
-//		        var alertBounds = new google.maps.LatLngBounds(
-//			        new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
-//			        new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
-//		        );
-//
-//		        var alertBox = new google.maps.Rectangle({
-//			        bounds: alertBounds,
-//			        editable: true,
-//			        strokeColor: '#F23C17',
-//			        fillColor: '#FFF',
-//			        strokeWeight: 2
-//		        });
-//
-//		        alertBox.setMap(_instance);
-
-
-//			        function _calculateBounds() {
-//				        var mapBounds = _instance.getBounds();
-//				        var alertBounds = alertBox.getBounds();
-//				        var bounds1 = [
-//					        [
-//						        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.b),
-//						        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.b),
-//						        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.d),
-//						        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.d)
-//					        ],
-//					        [
-//						        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.b),
-//						        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.d),
-//						        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.d),
-//						        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.b)
-//					        ]
-//				        ];
-//				        return bounds1;
-//			        }
-//
-//
-//
-//			        //		        var bounds2 = [
-//			        //			        new google.maps.LatLng(mapBounds.ba.d, mapBounds.fa.b),
-//			        //			        new google.maps.LatLng(mapBounds.ba.b, mapBounds.fa.b),
-//			        //			        new google.maps.LatLng(alertBounds.ba.b, alertBounds.fa.b),
-//			        //			        new google.maps.LatLng(alertBounds.ba.d, alertBounds.fa.b)
-//			        //		        ];
-//
-//			        var poly1 = new google.maps.Polygon({
-//				        paths: _calculateBounds(),
-//				        strokeWeight: 0
-//			        });
-//
-//			        //		        var poly2 = new google.maps.Polygon({
-//			        //			        paths: bounds2,
-//			        //			        strokeWeight: 0
-//			        //		        });
-//
-//			        poly1.setMap(_instance);
-//			        //		        poly2.setMap(_instance);
-//
-//					var mapBounds = _instance.getBounds();
-//					google.maps.event.addListener(_instance, 'dragstart', function() {
-//
-//						var map = _instance.getBounds();
-//						var alert = alertBox.getBounds();
-//
-//						var newBounds = new google.maps.LatLngBounds(
-//							new google.maps.LatLng(opts.center.jb - .01, opts.center.kb - .01),
-//							new google.maps.LatLng(opts.center.jb + .01, opts.center.kb + .01)
-//						);
-//
-//			        });
-//			        google.maps.event.addListener(_instance, 'dragend', function () {
-//				        mapBounds = _instance.getBounds();
-//			        });
-//
-//			        google.maps.event.addListener(alertBox, 'bounds_changed', function () {
-//				        $('img[src$="undo_poly.png"]').hide();
-//				        poly1.setPaths(_calculateBounds());
-//			        });
-//
-//		        }, 500);
-
-
 
         }
         else {
@@ -575,16 +320,12 @@
 
     var _m;
 
-    var controller = function ($scope, $element) {
-      
+    var controller = function ($scope, $element, $rootScope) {
       _m = $scope.map;
-      
-      self.addInfoWindow = function (lat, lng, content) {
-        _m.addInfoWindow(lat, lng, content);
-      };
+
     };
 
-    controller.$inject = ['$scope', '$element'];
+    controller.$inject = ['$scope', '$element', '$rootScope'];
     
     return {
       restrict: "ECA",
@@ -602,8 +343,6 @@
       controller: controller,      
       link: function (scope, element, attrs, ctrl) {
 
-	      scope.events = {};
-        
         // Center property must be specified and provide lat & 
         // lng properties
         if (!angular.isDefined(scope.bounds)) {
@@ -632,6 +371,10 @@
           draggable: attrs.draggable == "true",
           zoom: scope.zoom
         }));
+
+	    $timeout(function() {
+		    $rootScope.map = _m.map;
+	    });
 
         _m.on("drag", function () {
 

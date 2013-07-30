@@ -183,7 +183,7 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 /***********************/
 /** Search Controller **/
 /***********************/
-searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchFact, PropertiesFact, TemplateFact, AlertsFact) {
+searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchFact, PropertiesFact, TemplateFact, AlertsFact, ShapeFact) {
 	/* Controller Setup
 	********************/
 	$timeout(function () {
@@ -200,6 +200,7 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 	/* Scope Variables
 	*******************/
 	$scope.alertName = '';
+	$scope.isArea = 'true';
 	$scope.isCreatingAlert = false;
 	$scope.isNamingAlert = false;
 	$scope.isReady = false;
@@ -212,6 +213,8 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 	$scope.cancelAlert = function() {
 		$scope.isCreatingAlert = false;
 		$scope.isNamingAlert = false;
+		ShapeFact.clearShapes();
+		$scope.isArea = 'true';
 	};
 
 	$scope.createAlert = function() {
@@ -231,8 +234,12 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 	};
 
 	$scope.saveAlert = function() {
-		AlertsFact.saveAlert($scope.alertName);
+		AlertsFact.saveAlert($scope.alertName, $scope.isArea);
 		$scope.cancelAlert();
+	};
+
+	$scope.toggleAlert = function() {
+		$scope.isArea = !$scope.isArea;
 	};
 
 	$scope.updateURL = function () {
@@ -251,6 +258,15 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 	$scope.$on('UpdateURL', function () {
 		// Respond to SearchFact when URL was initially invalid
 		$scope.updateURL();
+	});
+
+	$scope.$watch('isArea', function () {
+		// Toggle alert display
+		if($scope.isArea === 'true') {
+			ShapeFact.clearShapes();
+		} else {
+			ShapeFact.getShapes(shapeData);
+		}
 	});
 
 	$scope.$watch(_returnSearchWatches(), function () {

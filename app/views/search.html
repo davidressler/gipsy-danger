@@ -9,9 +9,17 @@ HERE BE MY FILTERS
 
 
  <ng-include src="template"></ng-include>
-
+<!--<button ng-click="getShapes()">SHAPES</button>-->
 <button ng-hide="isCreatingAlert || isNamingAlert" ng-click="createAlert()">Create Alert from this search</button>
-<button ng-show="isCreatingAlert && !isNamingAlert" ng-click="nameAlert()">Save Alert</button>
-<input ng-show="isNamingAlert" ng-model="alertName" type="text"/>
-<button ng-show="isNamingAlert" ng-click="saveAlert()">Really Save alert</button>
+<div ng-show="isCreatingAlert && !isNamingAlert">
+    <button ng-click="nameAlert()">Save Alert</button>
+    <form name="radioStuff">
+        <input ng-model="isArea" value="true" type="radio"/>Area
+        <input ng-model="isArea" value="false" type="radio"/>Neigborhoods
+    </form>
+</div>
+<div ng-show="isNamingAlert">
+    <input ng-model="alertName" type="text"/>
+    <button ng-click="saveAlert()">Really Save alert</button>
+</div>
 <button ng-show="isNamingAlert || isCreatingAlert" ng-click="cancelAlert()">Cancel</button>

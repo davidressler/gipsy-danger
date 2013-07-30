@@ -8,19 +8,22 @@ var propertiesMod = angular.module('PropertiesMod', []);
 /** Properties Fact **/
 /*********************/
 propertiesMod.factory('PropertiesFact', function() {
-	/* Variables */
+	/* Variables
+	**************/
 	var listings = [];
 	var buildings = [];
 	var properties = [];
 
-	/* Private Functions */
+	/* Private Functions
+	**********************/
 	function _clearLists() {
 		listings = [];
 		buildings = [];
 		properties = [];
 	}
 
-	/* Public Functions */
+	/* Public Functions
+	*********************/
 	var getAllProperties = function () {
 		return properties;
 	};
