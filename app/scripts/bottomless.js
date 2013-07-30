@@ -22,8 +22,8 @@ bottomlessJS.factory('Bottomless', function () {
 		var scrubbed = scrubFloatList(value);
 		if(scrubbed.length === 4) {
 			return new google.maps.LatLngBounds(
-				new google.maps.LatLng(scrubbed[0], scrubbed[2]),
-				new google.maps.LatLng(scrubbed[1], scrubbed[3])
+				new google.maps.LatLng(scrubbed[0], scrubbed[1]),
+				new google.maps.LatLng(scrubbed[2], scrubbed[3])
 			);
 		}
 		return [];
@@ -91,8 +91,8 @@ bottomlessJS.factory('Bottomless', function () {
 	var filthifyBounds = function(value) {
 		var result = '';
 		result += value.ba.b;
-		result += ',' + value.ba.d;
 		result += ',' + value.fa.b;
+		result += ',' + value.ba.d;
 		result += ',' + value.fa.d;
 		return result;
 	};
@@ -139,9 +139,6 @@ bottomlessJS.factory('Bottomless', function () {
 	/** Filthify By Type **/
 	/**********************/
 	var filthifyByType = function (type, value) {
-		console.log(type);
-		console.log(value);
-		console.log(filthifyTypes[type](value));
 		return filthifyTypes[type](value);
 	};
 

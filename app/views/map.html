@@ -1,11 +1,15 @@
 This page has a map.
-<google-map
-        center="search.bounds.getCenter()"
-        zoom="search.zoom"
-        fit="false"
-        draggable="true"
-        options="options"
-       >
-</google-map>
+<search-map-dir>
 
-<alert-box></alert-box>
+    <google-map
+            bounds="search.bounds"
+            zoom="search.zoom"
+            fit="false"
+            draggable="true"
+            options="options"
+            events="events">
+    </google-map>
+
+    <alert-box-dir ng-show="isCreatingAlert"></alert-box-dir>
+
+</search-map-dir>

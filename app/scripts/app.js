@@ -6,7 +6,8 @@ var dependencies = [
 	'BottomlessJS',
 	'SearchMod',
 	'PropertiesMod',
-	'TemplatesMod'
+	'TemplatesMod',
+	'AlertsMod'
 ];
 
 var Spot = angular.module('spot', dependencies);

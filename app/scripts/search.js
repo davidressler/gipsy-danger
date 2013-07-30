@@ -183,15 +183,23 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 /***********************/
 /** Search Controller **/
 /***********************/
-searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchFact, PropertiesFact, TemplateFact) {
+searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchFact, PropertiesFact, TemplateFact, AlertsFact) {
 	/* Controller Setup
 	********************/
 	$timeout(function () {
 		$scope.init();
 	});
 
+	/* Private Functions
+	**********************/
+	function _returnSearchWatches() {
+		// Return the filter/map values that, upon being changed, trigger a URL update
+		return 'search.bounds + search.zoom';
+	}
+
 	/* Scope Variables
 	*******************/
+	$scope.alertName = '';
 	$scope.isCreatingAlert = false;
 	$scope.isNamingAlert = false;
 	$scope.isReady = false;
@@ -201,12 +209,30 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 
 	/* Scope Functions
 	*******************/
+	$scope.cancelAlert = function() {
+		$scope.isCreatingAlert = false;
+		$scope.isNamingAlert = false;
+	};
+
+	$scope.createAlert = function() {
+		$scope.isCreatingAlert = true;
+	};
+
 	$scope.init = function () {
 		$scope.isReady = true;
 		// Is the URL Valid? If not, we need to set the params
 		if (!SearchFact.isUrlValid($location.search())) {
 			$scope.updateURL();
 		}
+	};
+
+	$scope.nameAlert = function() {
+		$scope.isNamingAlert = true;
+	};
+
+	$scope.saveAlert = function() {
+		AlertsFact.saveAlert($scope.alertName);
+		$scope.cancelAlert();
 	};
 
 	$scope.updateURL = function () {
@@ -217,12 +243,6 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 
 	/* Scope Watches
 	******************/
-	$scope.$on('AlertSaved', function () {
-		// Revert to normal search (aka not setting an alert)
-		$scope.isCreatingAlert = false;
-		$scope.isNamingAlert = false;
-	});
-
 	$scope.$on('SearchUpdated', function () {
 		// Respond to SearchFact update by syncing model
 		$scope.search = SearchFact.getSearch();
@@ -230,14 +250,15 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 
 	$scope.$on('UpdateURL', function () {
 		// Respond to SearchFact when URL was initially invalid
-		console.log('im changing the url')
 		$scope.updateURL();
 	});
 
-	$scope.$watch('search.zoom', function () {
-		// When the zoom changes on the map, update the URL
+	$scope.$watch(_returnSearchWatches(), function () {
+		// When the search model changes, update the URL accordingly
 		$scope.updateURL();
 	});
+
+
 });
 
 /* TODO: THIS MAY NOT BE NECESSARY
@@ -264,41 +285,42 @@ searchMod.directive('SearchDir', function() {
 *
 * */
 
-searchMod.directive('SearchMapDir', function() {
+
+/*
+todo: Directives
+Directives need to be camel cased, but show up in the html all lower case and separated by hypehns
+aka searchMapDir --> search-map-dir
+ */
+
+searchMod.directive('searchMapDir', function() {
 	return {
 		restrict: 'EA',
 		template: '<div class="map-wrapper" ng-transclude></div>',
 		controller: 'SearchMapCtrl',
-		transclude: true
+		transclude: true,
+		link: function(scope, element, attrs) {
+
+		}
 	}
 });
 
 searchMod.controller('SearchMapCtrl', function($scope) {
+
 	/* Scope Variables
 	*******************/
 	$scope.events = {
-		bounds_changed: function () {
-
-		},
-		dragend: function () {
-
-		},
-		dragstart: function(mapModel) {
-
-		},
-		idle: function (mapModel) {
-
-		},
-		zoom_changed: function (mapModel) {
-
-		}
+//		bounds_changed: function () {},
+//		dragend: function () {},
+//		dragstart: function(mapModel) {},
+//		idle: function (mapModel) {},
+//		zoom_changed: function (mapModel) {}
 	};
-	$scope.markers = [];
 	$scope.options = {
 		mapTypeControl: false,
 		streetViewControl: false,
 		panControl: false,
-		keyboardShortcuts: false
+		keyboardShortcuts: false,
+		disableDefaultUI: true
 	};
 });
 

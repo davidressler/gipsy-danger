@@ -27,63 +27,6 @@
  * @author Nicolas Laplante https://plus.google.com/108189012221374960701
  */
 
-
-//function AlertBoxOverlay(bounds, map) {
-//
-//	this.bounds_ = bounds;
-//	this.map_ = map;
-//
-//	this.div_ = null;
-//
-//	this.setMap(map);
-//
-//}
-//
-//AlertBoxOverlay.prototype = new google.maps.OverlayView();
-//AlertBoxOverlay.prototype.onAdd = function() {
-//	var div = document.createElement('div');
-//	div.className = 'alert-box-overlay';
-//
-//	this.div_ = div;
-//
-//	var panes = this.getPanes();
-//	panes.overlayLayer.appendChild(div);
-//
-//};
-//AlertBoxOverlay.prototype.draw = function() {
-//	var overlayProjection = this.getProjection();
-//
-//	var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
-//	var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
-//
-//	var div = this.div_;
-//	div.style.left = sw.x + 'px';
-//	div.style.top = ne.y + 'px';
-//	div.style.width = (ne.x - sw.x) + 'px';
-//	div.style.height = (sw.y - ne.y) + 'px';
-//
-//};
-var ready = false;
-
-    //--Google Maps Overlay Hack--//
-    //--CLEAN UP YOUR API GOOGLE!--//
-    function ProjectionHelperOverlay(map) {
-
-        google.maps.OverlayView.call(this);
-        this.setMap(map);
-    }
-
-ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
-		ProjectionHelperOverlay.prototype.onAdd = function() {};
-		ProjectionHelperOverlay.prototype.onRemove = function() {};
-		ProjectionHelperOverlay.prototype.draw = function () {
-			if (!ready) {
-				ready = true;
-				google.maps.event.trigger(this, 'ready');
-			}
-		};
-
-
 (function () {
 
 
@@ -151,8 +94,7 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
             center: that.center,
             zoom: that.zoom,
             draggable: that.draggable,
-            mapTypeId : google.maps.MapTypeId.ROADMAP,
-	        disableDefaultUI: true
+            mapTypeId : google.maps.MapTypeId.ROADMAP
           }));
 
 	        this.map = _instance;
@@ -174,40 +116,6 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 
 
 	        }, 1000);
-
-
-
-
-			var rect;
-
-	        hackProjection = new ProjectionHelperOverlay(_instance);
-
-
-	        google.maps.event.addListener(hackProjection, 'ready', function () {
-
-//		       var alertBounds = _calculateBounds();
-//
-//		        rect = new google.maps.Rectangle({
-//			        bounds: alertBounds,
-//			        fillColor: 'yellow',
-//			        strokeColor: 'green'
-//		        });
-
-//		        rect.setMap(_instance);
-
-
-
-//		        for(var i=0; i < 25; i++) {
-//			        var num = Math.random();
-//			        var clusterBounds = new google.maps.LatLng(opts.center.jb + num, opts.center.kb + num);
-//			        console.log(clusterBounds);
-//
-//			        var cluster = new ClusterHelperOverlay(clusterBounds, _instance);
-//		        }
-
-
-
-	        });
 
 
 
@@ -662,8 +570,8 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
   /**
    * Map directive
    */
-  googleMapsModule.directive("googleMap", ["$log", "$timeout", "$filter", '$rootScope', 'ClusterFact', function ($log, $timeout,
-      $filter, $rootScope, ClusterFact) {
+  googleMapsModule.directive("googleMap", ["$log", "$timeout", "$filter", '$rootScope', 'ClusterFact', 'AlertsFact', function ($log, $timeout,
+      $filter, $rootScope, ClusterFact, AlertsFact) {
 
     var _m;
 
@@ -685,22 +593,20 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
       template: "<div class='angular-google-map' ng-transclude></div>",
       replace: false,
       scope: {
-        center: "=center", // required
-        markers: "=markers", // optional
-        latitude: "=latitude", // required
-        longitude: "=longitude", // required
+        bounds: "=bounds", // required
         zoom: "=zoom", // required
         refresh: "&refresh", // optional
-        windows: "=windows", // optional
         events: "=events",
 	    options: "=options"
       },
       controller: controller,      
       link: function (scope, element, attrs, ctrl) {
+
+	      scope.events = {};
         
         // Center property must be specified and provide lat & 
         // lng properties
-        if (!angular.isDefined(scope.center)) {
+        if (!angular.isDefined(scope.bounds)) {
         	
           $log.error("angular-google-maps: could not find a valid center property");          
           return;
@@ -722,7 +628,7 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
         // Create our model
         _m = new MapModel(angular.extend(opts, {
           container: element[0],            
-          center: scope.center,
+          center: scope.bounds.getCenter(),
           draggable: attrs.draggable == "true",
           zoom: scope.zoom
         }));
@@ -732,11 +638,7 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
           var c = _m.center;
 
           $timeout(function () {
-            
-            scope.$apply(function (s) {
-              scope.center[0] = c.lat();
-              scope.center[1] = c.lng();
-            });
+
 
           if (scope.events.hasOwnProperty('drag') && angular.isFunction(scope.events['drag'])) {
 	          scope.events['drag']();
@@ -771,8 +673,7 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
             scope.$apply(function (s) {
 
               if (!_m.dragging) {
-                scope.center[0] = c.lat();
-                scope.center[1] = c.lng();
+                scope.bounds = _m.map.getBounds();
               }
             });
           });
@@ -809,6 +710,10 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 //
 //	              ClusterFact.createClusters(data, _m.map);
 
+	              scope.$apply(function (s) {
+		              scope.bounds = _m.map.getBounds();
+	              });
+
                   if (scope.events.hasOwnProperty('idle') && angular.isFunction(scope.events['idle'])) {
                       scope.events['idle'](_m);
                   }
@@ -838,46 +743,6 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
                   }
               });
           });
-
-
-//        if (angular.isDefined(scope.events)) {
-//          for (var eventName in scope.events) {
-//            if (scope.events.hasOwnProperty(eventName) && angular.isFunction(scope.events[eventName])) {
-//              _m.on(eventName, function () {
-//                scope.events[eventName].apply(scope, [_m, eventName, arguments]);
-//              });
-//            }
-//          }
-//        }
-        
-        if (attrs.markClick == "true") {
-          (function () {
-            var cm = null;
-            
-            _m.on("click", function (e) {                         
-              if (cm == null) {
-                
-                cm = {
-                  latitude: e.latLng.lat(),
-                  longitude: e.latLng.lng() 
-                };
-                
-                scope.markers.push(cm);
-              }
-              else {
-                cm.latitude = e.latLng.lat();
-                cm.longitude = e.latLng.lng();
-              }
-              
-              
-              $timeout(function () {
-                scope.latitude = cm.latitude;
-                scope.longitude = cm.longitude;
-                scope.$apply();
-              });
-            });
-          }());
-        }
         
         // Put the map into the scope
         scope.map = _m;
@@ -894,57 +759,6 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
             }
           });
         }
-        
-        // Markers
-        scope.$watch("markers", function (newValue, oldValue) {
-          
-          $timeout(function () {
-            
-            angular.forEach(newValue, function (v, i) {
-              if (!_m.hasMarker(v.latitude, v.longitude)) {
-                _m.addMarker(v.latitude, v.longitude, v.icon, v.infoWindow);
-              }
-            });
-            
-            // Clear orphaned markers
-            var orphaned = [];
-            
-            angular.forEach(_m.getMarkerInstances(), function (v, i) {
-              // Check our scope if a marker with equal latitude and longitude. 
-              // If not found, then that marker has been removed form the scope.
-              
-              var pos = v.getPosition(),
-                lat = pos.lat(),
-                lng = pos.lng(),
-                found = false;
-              
-              // Test against each marker in the scope
-              for (var si = 0; si < scope.markers.length; si++) {
-                
-                var sm = scope.markers[si];
-                
-                if (floatEqual(sm.latitude, lat) && floatEqual(sm.longitude, lng)) {
-                  // Map marker is present in scope too, don't remove
-                  found = true;
-                }
-              }
-              
-              // Marker in map has not been found in scope. Remove.
-              if (!found) {
-                orphaned.push(v);
-              }
-            });
-
-            orphaned.length && _m.removeMarkers(orphaned);           
-            
-            // Fit map when there are more than one marker. 
-            // This will change the map center coordinates
-            if (attrs.fit == "true" && newValue && newValue.length > 1) {
-              _m.fit();
-            }
-          });
-          
-        }, true);
         
         
         // Update map when center coordinates change
@@ -968,6 +782,11 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
           _m.zoom = newValue;
           _m.draw();
         });
+
+	     var projection = new ProjectionHelperOverlay(_m.map);
+	     google.maps.event.addListener(projection, 'ready', function() {
+		    AlertsFact.setProjection(projection);
+	     });
       }
     };
   }]);  

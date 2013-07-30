@@ -1,9 +1,17 @@
 SEARCH
 <br>
-<a href="#/search/list?zoom=11&center=36,-122">List</a>
-<a href="#/search/map?zoom=11&center=36,-122">Map</a>
-<a href="#/search/grid?zoom=11&center=36,-122">Grid</a>
+<a href="#/search/list">List</a>
+<a href="#/search/map">Map</a>
+<a href="#/search/grid">Grid</a>
+
 HERE BE MY FILTERS
         <br>
 
+
  <ng-include src="template"></ng-include>
+
+<button ng-hide="isCreatingAlert || isNamingAlert" ng-click="createAlert()">Create Alert from this search</button>
+<button ng-show="isCreatingAlert && !isNamingAlert" ng-click="nameAlert()">Save Alert</button>
+<input ng-show="isNamingAlert" ng-model="alertName" type="text"/>
+<button ng-show="isNamingAlert" ng-click="saveAlert()">Really Save alert</button>
+<button ng-show="isNamingAlert || isCreatingAlert" ng-click="cancelAlert()">Cancel</button>

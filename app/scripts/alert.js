@@ -7,9 +7,38 @@ var alertsMod = angular.module('AlertsMod', []);
 /********************/
 /** Alerts Factory **/
 /********************/
-alertsMod.factory('AlertsFact', function($rootScope, $http) {
+alertsMod.factory('AlertsFact', function($rootScope, $http, Bottomless) {
 
-	/* Public Functions */
+	/* Variables
+	**************/
+	var projection;
+
+	/* Private Functions
+	*********************/
+	function _calculateBounds() {
+        var alertBox = $('.alert-box');
+
+        var neAlertTop = alertBox.position().top;
+        var neAlertLeft = alertBox.position().left + alertBox.width() + 2;
+        var swAlertTop = alertBox.position().top + alertBox.height() + 2;
+        var swAlertLeft = alertBox.position().left;
+
+        var ne = projection.getProjection().fromContainerPixelToLatLng(
+	        new google.maps.Point(neAlertLeft, neAlertTop)
+        );
+
+        var sw = projection.getProjection().fromContainerPixelToLatLng(
+	        new google.maps.Point(swAlertLeft, swAlertTop)
+        );
+
+        return new google.maps.LatLngBounds(
+	        new google.maps.LatLng(sw.jb, sw.kb),
+	        new google.maps.LatLng(ne.jb, ne.kb)
+        );
+    }
+
+	/* Public Functions
+	*********************/
 	var getById = function(id) {
 
 	};
@@ -18,14 +47,20 @@ alertsMod.factory('AlertsFact', function($rootScope, $http) {
 
 	};
 
-	var saveAlert = function(data) {
-		$rootScope.$broadcast('AlertSaved');
+	var saveAlert = function(name) {
+		alert('Alert Saved!\nName: ' + name + '\nBounds:' + Bottomless.filthifyByType('bounds', _calculateBounds()));
+		// do some shit
+	};
+
+	var setProjection = function(overlay) {
+		projection = overlay;
 	};
 
 	return {
 		getById: getById,
 		getbyUserId: getByUserId,
-		saveAlert: saveAlert
+		saveAlert: saveAlert,
+		setProjection: setProjection
 	}
 
 });
@@ -39,6 +74,8 @@ alertsMod.directive('alertBoxDir', function() {
 		templateUrl: 'views/alert-box.html',
 		controller: 'AlertBoxCtrl',
 		link: function(scope, element, attrs) {
+			element.addClass('alert-box-dir');
+
 			var alertBox = element.children().eq(1).children();
 			var ogTop = alertBox.position().top;
 			var ogLeft = alertBox.position().left;
@@ -142,3 +179,23 @@ alertsMod.directive('ShapeDir', function() {
 		restrict: 'EA'
 	}
 });
+
+
+
+
+function ProjectionHelperOverlay(map) {
+	this.ready = false;
+
+    google.maps.OverlayView.call(this);
+    this.setMap(map);
+}
+
+ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
+ProjectionHelperOverlay.prototype.onAdd = function() {};
+ProjectionHelperOverlay.prototype.onRemove = function() {};
+ProjectionHelperOverlay.prototype.draw = function () {
+	if (!this.ready) {
+		this.ready = true;
+		google.maps.event.trigger(this, 'ready');
+	}
+};
