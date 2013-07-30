@@ -185,13 +185,13 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 
 	        google.maps.event.addListener(hackProjection, 'ready', function () {
 
-		       var alertBounds = _calculateBounds();
-
-		        rect = new google.maps.Rectangle({
-			        bounds: alertBounds,
-			        fillColor: 'yellow',
-			        strokeColor: 'green'
-		        });
+//		       var alertBounds = _calculateBounds();
+//
+//		        rect = new google.maps.Rectangle({
+//			        bounds: alertBounds,
+//			        fillColor: 'yellow',
+//			        strokeColor: 'green'
+//		        });
 
 //		        rect.setMap(_instance);
 
@@ -212,40 +212,40 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
 
 
 
-	        function _calculateBounds() {
-		        var alertBox = $('.alert-box');
-
-		        var neAlertTop = alertBox.position().top;
-		        var neAlertLeft = alertBox.position().left + alertBox.width() + 2;
-		        var swAlertTop = alertBox.position().top + alertBox.height() + 2;
-		        var swAlertLeft = alertBox.position().left;
-
-		        var ne = hackProjection.getProjection().fromContainerPixelToLatLng(
-			        new google.maps.Point(neAlertLeft, neAlertTop)
-		        );
-
-		        var sw = hackProjection.getProjection().fromContainerPixelToLatLng(
-			        new google.maps.Point(swAlertLeft, swAlertTop)
-		        );
-
-		        var alertBounds = new google.maps.LatLngBounds(
-			        new google.maps.LatLng(sw.jb, sw.kb),
-			        new google.maps.LatLng(ne.jb, ne.kb)
-		        );
-
-		        return alertBounds;
-	        }
-
-	        google.maps.event.addListener(hackProjection, 'resize', function() {
-		        rect.setBounds(_calculateBounds());
-	        });
-
-
-	        google.maps.event.addListener(_instance, 'idle', function() {
-		        rect.setBounds(_calculateBounds());
-
-
-	        });
+//	        function _calculateBounds() {
+//		        var alertBox = $('.alert-box');
+//
+//		        var neAlertTop = alertBox.position().top;
+//		        var neAlertLeft = alertBox.position().left + alertBox.width() + 2;
+//		        var swAlertTop = alertBox.position().top + alertBox.height() + 2;
+//		        var swAlertLeft = alertBox.position().left;
+//
+//		        var ne = hackProjection.getProjection().fromContainerPixelToLatLng(
+//			        new google.maps.Point(neAlertLeft, neAlertTop)
+//		        );
+//
+//		        var sw = hackProjection.getProjection().fromContainerPixelToLatLng(
+//			        new google.maps.Point(swAlertLeft, swAlertTop)
+//		        );
+//
+//		        var alertBounds = new google.maps.LatLngBounds(
+//			        new google.maps.LatLng(sw.jb, sw.kb),
+//			        new google.maps.LatLng(ne.jb, ne.kb)
+//		        );
+//
+//		        return alertBounds;
+//	        }
+//
+//	        google.maps.event.addListener(hackProjection, 'resize', function() {
+//		        rect.setBounds(_calculateBounds());
+//	        });
+//
+//
+//	        google.maps.event.addListener(_instance, 'idle', function() {
+//		        rect.setBounds(_calculateBounds());
+//
+//
+//	        });
 
 
 
@@ -700,9 +700,7 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
         
         // Center property must be specified and provide lat & 
         // lng properties
-        if (!angular.isDefined(scope.center) ||
-            (!angular.isDefined(scope.center[0]) ||
-                !angular.isDefined(scope.center[1]))) {
+        if (!angular.isDefined(scope.center)) {
         	
           $log.error("angular-google-maps: could not find a valid center property");          
           return;
@@ -724,7 +722,7 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
         // Create our model
         _m = new MapModel(angular.extend(opts, {
           container: element[0],            
-          center: new google.maps.LatLng(scope.center[0], scope.center[1]),
+          center: scope.center,
           draggable: attrs.draggable == "true",
           zoom: scope.zoom
         }));
@@ -771,7 +769,7 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
           $timeout(function () {
             
             scope.$apply(function (s) {
-              
+
               if (!_m.dragging) {
                 scope.center[0] = c.lat();
                 scope.center[1] = c.lng();
@@ -785,31 +783,31 @@ ProjectionHelperOverlay.prototype = new google.maps.OverlayView();
               $timeout(function () {
 
 	              //TODO: BULLSHIT CLUSTER STUFF
-	              var num = Math.random();
-	              var data = [];
-	              for(var i=0; i < 25; i++){
-		              var result = {};
-		              result['c'] = i;
-		              if(i % 2 == 0) {
-			              result['la'] = _m.center.lat() - (i * 0.01);
-
-		              }else {
-			              result['la'] = _m.center.lat() + (i * 0.01);
-
-		              }
-
-		              if(i % 3 == 0) {
-			              result['ln'] = _m.center.lng() - (i * 0.01);
-		              } else {
-			              result['ln'] = _m.center.lng() + (i * 0.01);
-		              }
-
-		              result['l'] = [];
-		              data.push(result);
-
-	              }
-
-	              ClusterFact.createClusters(data, _m.map);
+//	              var num = Math.random();
+//	              var data = [];
+//	              for(var i=0; i < 25; i++){
+//		              var result = {};
+//		              result['c'] = i;
+//		              if(i % 2 == 0) {
+//			              result['la'] = _m.center.lat() - (i * 0.01);
+//
+//		              }else {
+//			              result['la'] = _m.center.lat() + (i * 0.01);
+//
+//		              }
+//
+//		              if(i % 3 == 0) {
+//			              result['ln'] = _m.center.lng() - (i * 0.01);
+//		              } else {
+//			              result['ln'] = _m.center.lng() + (i * 0.01);
+//		              }
+//
+//		              result['l'] = [];
+//		              data.push(result);
+//
+//	              }
+//
+//	              ClusterFact.createClusters(data, _m.map);
 
                   if (scope.events.hasOwnProperty('idle') && angular.isFunction(scope.events['idle'])) {
                       scope.events['idle'](_m);

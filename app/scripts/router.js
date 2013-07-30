@@ -2,7 +2,7 @@
 /*****     ROUTER      *****/
 /***************************/
 
-app.config(function ($routeProvider) {
+Spot.config(function ($routeProvider) {
     $routeProvider
 	    /*****************/
 	    /** Index Route **/
@@ -19,7 +19,7 @@ app.config(function ($routeProvider) {
 	    })
 		    .when('/search/list', {
 			    templateUrl: 'views/search.html',
-			    controller: 'MainCtrl',
+			    controller: 'SearchCtrl',
 			    reloadOnSearch: false
 		    })
 			    .when('/search/list/listing/:listingId', {
@@ -36,7 +36,7 @@ app.config(function ($routeProvider) {
 				    })
 		    .when('/search/map', {
 			    templateUrl: 'views/search.html',
-			    controller: 'MainCtrl',
+			    controller: 'SearchCtrl',
 			    reloadOnSearch: false
 		    })
 			    .when('/search/map/listing/:listingId', {

@@ -165,9 +165,9 @@
             border: 1px solid rgba(0, 0, 0, 1.0);
         }
 
-            /* ==========================================================================
-               Specific Clusters
-               ========================================================================== */
+        /* ==========================================================================
+           Specific Clusters
+           ========================================================================== */
         .cluster-fresh {
             background-color: rgba(235, 86, 53, 1.0);
         }
@@ -187,39 +187,28 @@
     </style>
 
 </head>
-  <body ng-app="angularRouterApp">
+  <body ng-app="spot">
     <!-- Add your site or application content here -->
     <div class="container" ng-view=""></div>
 
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7mnpaerzGyzDY0oRK2jPYjm9bYgaVzsY&sensor=false"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7mnpaerzGyzDY0oRK2jPYjm9bYgaVzsY&sensor=false"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="bower_components/angular/angular.js"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
+    <!--<script src="scripts/controllers/main.js"></script>-->
     <script src="scripts/cluster.js"></script>
     <script src="scripts/properties.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/alert.js"></script>
+    <script src="scripts/bottomless.js"></script>
+    <script src="scripts/building.js"></script>
+    <script src="scripts/listing.js"></script>
+    <script src="scripts/router.js"></script>
+    <script src="scripts/templates.js"></script>
     <!-- endbuild -->
-
-        <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
-        <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
         <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -228,7 +217,6 @@
 
     <script src="bower_components/angular-ui/build/angular-ui.js"></script>
     <script src="bower_components/angular-ui-utils/modules/event/event.js"></script>
-    <script src="bower_components/angular-ui-map/src/map.js"></script>
     <script src="scripts/hack-maps.js"></script>
         <!-- endbuild -->
     <script type="text/javascript">

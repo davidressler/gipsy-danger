@@ -15,6 +15,20 @@ bottomlessJS.factory('Bottomless', function () {
 		return value.toLowerCase() === 't' || value.toLowerCase() === 'true';
 	};
 
+	/******************/
+	/** Scrub Bounds **/
+	/******************/
+	var scrubBounds = function(value) {
+		var scrubbed = scrubFloatList(value);
+		if(scrubbed.length === 4) {
+			return new google.maps.LatLngBounds(
+				new google.maps.LatLng(scrubbed[0], scrubbed[2]),
+				new google.maps.LatLng(scrubbed[1], scrubbed[3])
+			);
+		}
+		return [];
+	};
+
 	/**********************/
 	/** Scrub Float List **/
 	/**********************/
@@ -71,6 +85,18 @@ bottomlessJS.factory('Bottomless', function () {
 		return 'f'
 	};
 
+	/*********************/
+	/** Filthify Bounds **/
+	/*********************/
+	var filthifyBounds = function(value) {
+		var result = '';
+		result += value.ba.b;
+		result += ',' + value.ba.d;
+		result += ',' + value.fa.b;
+		result += ',' + value.fa.d;
+		return result;
+	};
+
 	/*******************/
 	/** Filthify List **/
 	/*******************/
@@ -87,6 +113,7 @@ bottomlessJS.factory('Bottomless', function () {
 
 	var scrubTypes = {
 		bool: scrubBool,
+		bounds: scrubBounds,
 		floatList: scrubFloatList,
 		int: scrubInt,
 		intList: scrubIntList,
@@ -95,6 +122,7 @@ bottomlessJS.factory('Bottomless', function () {
 
 	var filthifyTypes = {
 		bool: filthifyBool,
+		bounds: filthifyBounds,
 		floatList: filthifyList,
 		intList: filthifyList,
 		stringList: filthifyList
@@ -111,6 +139,9 @@ bottomlessJS.factory('Bottomless', function () {
 	/** Filthify By Type **/
 	/**********************/
 	var filthifyByType = function (type, value) {
+		console.log(type);
+		console.log(value);
+		console.log(filthifyTypes[type](value));
 		return filthifyTypes[type](value);
 	};
 

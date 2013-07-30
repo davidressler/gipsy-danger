@@ -51,7 +51,7 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 
 	var urlKeys = {
 		bd: { type: 'intList', name: 'beds' },
-		bn: { type: 'floatList', name: 'bounds' },
+		bn: { type: 'bounds', name: 'bounds' },
 		c: { type: 'bool', name: 'cats' },
 		d: { type: 'bool', name: 'dogs' },
 		k: { type: 'stringList', name: 'keywords' },
@@ -62,7 +62,7 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 	};
 	var searchKeys = {
 		beds: { type: 'intList', url: 'bd' },
-		bounds: { type: 'floatList', url: 'bn' },
+		bounds: { type: 'bounds', url: 'bn' },
 		cats: { type: 'bool', url: 'c' },
 		dogs: { type: 'bool', url: 'd' },
 		keywords: { type: 'stringList', url: 'k' },
@@ -84,7 +84,7 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 				var value = params[param];
 
 				// Let BottomlessJS do the heavy lifting
-				search[urlKeys[value].name] = Bottomless.scrubByType(urlKeys[param].type, value);
+				search[urlKeys[param].name] = Bottomless.scrubByType(urlKeys[param].type, value);
 			}
 		}
 	}
@@ -101,12 +101,12 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 		/** Check if the url has the minimum requirements to create a valid search **/
 
 		// First, check if the url contains a zoom level and, if it does, that the value is legitimate
-		if( !(params.hasOwnProperty('z') && !isNaN(params['z'])) ) {
+		if( !(params.hasOwnProperty('z') && !isNaN(parseInt(params['z']))) ) {
 			return false;
 		}
 
 		// Check to see if the url contains a bounds parameter
-		if( !(params.hasOwnProperty('bn')) ) {
+		if( (params.hasOwnProperty('bn')) ) {
 			var bounds = params['bn'].split(',');
 
 			// Make sure we have all 4 values we need to actually have map bounds
@@ -121,6 +121,9 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 				}
 			}
 
+		} else {
+			// If it doesn't, it's definitely not valid
+			return false;
 		}
 
 		// If we made it this far, we can actually do something with this url
@@ -140,12 +143,12 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 
 			// For lists and booleans, we have a special url structure - Bottomless takes care of that
 			var type = searchKeys[key].type;
-			if (type === 'intList' || type === 'floatList' || type === 'stringList' || type === 'bool') {
+			if (type === 'intList' || type === 'bounds' || type === 'stringList' || type === 'bool') {
 				url += Bottomless.filthifyByType(type, searchObj[key]);
 			} else {
 
-				// Otherwise, just attach the value to the url string
-				url += searchObj[key];
+				// Otherwise, just attach the value to the url string (if it's not null)
+				if(searchObj[key]) url += searchObj[key];
 			}
 		}
 		return url;
@@ -153,7 +156,6 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 
 	var setSearch = function (params) {
 		/** Save search from url into model **/
-
 		// Check if the url would even make a valid search object
 		if(isUrlValid(params)) {
 
@@ -181,7 +183,7 @@ searchMod.factory('SearchFact', function($rootScope, Bottomless) {
 /***********************/
 /** Search Controller **/
 /***********************/
-searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchFact, PropertiesFact) {
+searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchFact, PropertiesFact, TemplateFact) {
 	/* Controller Setup
 	********************/
 	$timeout(function () {
@@ -195,19 +197,19 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 	$scope.isReady = false;
 	$scope.properties = PropertiesFact.getAllProperties();
 	$scope.search = SearchFact.getSearch();
+	$scope.template = TemplateFact.getByPath($location.path());
 
 	/* Scope Functions
 	*******************/
 	$scope.init = function () {
 		$scope.isReady = true;
-
 		// Is the URL Valid? If not, we need to set the params
 		if (!SearchFact.isUrlValid($location.search())) {
 			$scope.updateURL();
 		}
 	};
 
-	$scope.updateURl = function () {
+	$scope.updateURL = function () {
 		if($scope.isReady) {
 			$location.search(SearchFact.searchToUrl($scope.search));
 		}
@@ -228,6 +230,7 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 
 	$scope.$on('UpdateURL', function () {
 		// Respond to SearchFact when URL was initially invalid
+		console.log('im changing the url')
 		$scope.updateURL();
 	});
 

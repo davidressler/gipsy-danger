@@ -15,7 +15,7 @@ templatesMod.factory('TemplateFact', function () {
 
 	/** You must add templates to the array for this to work, asshole **/
 	var templates = [
-
+		{name: 'map', path: '/search/map', url: 'views/map.html'}
 	];
 
 
@@ -30,10 +30,11 @@ templatesMod.factory('TemplateFact', function () {
 	};
 
 	var getByPath = function (path) {
+		console.log(path);
 		var template = templates.filter(function (template) {
-			return template.path === name;
+			return template.path === path;
 		});
-		if(template) return template.url;
+		if(template.length > 0) return template[0].url;
 		return '';
 	};
 
