@@ -6,7 +6,7 @@ var bottomlessJS = angular.module('BottomlessJS', []);
 
 bottomlessJS.factory('Bottomless', function () {
 
-	/************************ UTIL FUNCTIONS ************************/
+	/************************ SCRUB FUNCTIONS ************************/
 
 	/****************/
 	/** Scrub Bool **/
@@ -61,9 +61,31 @@ bottomlessJS.factory('Bottomless', function () {
 		return list;
 	};
 
-	/************************ UTIL FUNCTIONS ************************/
+	/************************ FILTHIFY FUNCTIONS (aka to URL) ************************/
 
-	var types = {
+	/*******************/
+	/** Filthify Bool **/
+	/*******************/
+	var filthifyBool = function (value) {
+		if(value) return 't';
+		return 'f'
+	};
+
+	/*******************/
+	/** Filthify List **/
+	/*******************/
+	var filthifyList = function (value) {
+		var result = '';
+		for(var i=0; i < value.length; i++) {
+			if(i != 0) result += ',';
+			result += value[i];
+		}
+		return result;
+	};
+
+	/************************ OTHER FUNCTIONS ************************/
+
+	var scrubTypes = {
 		bool: scrubBool,
 		floatList: scrubFloatList,
 		int: scrubInt,
@@ -71,20 +93,30 @@ bottomlessJS.factory('Bottomless', function () {
 		stringList: scrubStringList
 	};
 
+	var filthifyTypes = {
+		bool: filthifyBool,
+		floatList: filthifyList,
+		intList: filthifyList,
+		stringList: filthifyList
+	};
+
 	/*******************/
 	/** Scrub By Type **/
 	/*******************/
 	var scrubByType = function (type, value) {
-		return types[type](value);
+		return scrubTypes[type](value);
+	};
+
+	/**********************/
+	/** Filthify By Type **/
+	/**********************/
+	var filthifyByType = function (type, value) {
+		return filthifyTypes[type](value);
 	};
 
 	return {
-		scrubBool: scrubBool,
-		scrubByType: scrubByType,
-		scrubFloatList: scrubFloatList,
-		scrubInt: scrubInt,
-		scrubIntList: scrubIntList,
-		scrubList: scrubList
+		filthifyByType: filthifyByType,
+		scrubByType: scrubByType
 	}
 
 

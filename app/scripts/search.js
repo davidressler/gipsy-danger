@@ -44,79 +44,129 @@ function Search() {
 /********************/
 /** Search Factory **/
 /********************/
-searchMod.factory('SearchFact', function($rootScope) {
-	/* Variables */
+searchMod.factory('SearchFact', function($rootScope, Bottomless) {
+	/* Variables
+	**************/
 	var search = new Search();
-	var typeDict = {
-		bd: 'intList',
-		bn: 'floatList',
-		c: 'bool',
-		d: 'bool',
-		k: 'stringList',
-		mx: 'int',
-		mn: 'int',
-		p: 'bool',
-		z: 'int'
+
+	var urlKeys = {
+		bd: { type: 'intList', name: 'beds' },
+		bn: { type: 'floatList', name: 'bounds' },
+		c: { type: 'bool', name: 'cats' },
+		d: { type: 'bool', name: 'dogs' },
+		k: { type: 'stringList', name: 'keywords' },
+		mx: { type: 'int', name: 'maxPrice' },
+		mn: { type: 'int', name: 'minPrice' },
+		p: { type: 'bool', name: 'photos' },
+		z: { type: 'int', name: 'zoom' }
 	};
-	var urlDict = {
-		bd: 'beds',
-		bn: 'bounds',
-		c: 'cats',
-		d: 'dogs',
-		k: 'keywords',
-		mx: 'maxPrice',
-		mn: 'minPrice',
-		p: 'photos',
-		z: 'zoom'
+	var searchKeys = {
+		beds: { type: 'intList', url: 'bd' },
+		bounds: { type: 'floatList', url: 'bn' },
+		cats: { type: 'bool', url: 'c' },
+		dogs: { type: 'bool', url: 'd' },
+		keywords: { type: 'stringList', url: 'k' },
+		maxPrice: { type: 'int', url: 'mx' },
+		minPrice: { type: 'int', url: 'mn' },
+		photos: { type: 'bool', url: 'p' },
+		zoom: { type: 'int', url: 'z' }
 	};
 
-	/* Private Functions */
+	/* Private Functions
+	**********************/
 	function _urlToSearch(params) {
+		/** Convert url into a valid search object **/
+
 		for (var param in params) {
-			// Check if param is even one we're supposed to be checking for
-			if (urlDict.hasOwnProperty(param)) {
+
+			// Check that the parameter in the url is even something we care about
+			if (urlKeys.hasOwnProperty(param)) {
 				var value = params[param];
-				search[urlDict[value]] = $rootScope.Bottomless.scrubByType(typeDict[param], value);
+
+				// Let BottomlessJS do the heavy lifting
+				search[urlKeys[value].name] = Bottomless.scrubByType(urlKeys[param].type, value);
 			}
-
 		}
-
 	}
 
-	/* Public Functions */
+	/* Public Functions
+	**********************/
 	var getSearch = function () {
+		/** Getter for search object (aka how SearchCtrl updates its model) **/
+
 		return search;
 	};
 
 	var isUrlValid = function (params) {
-		var valid = true;
-		if( !('z' in params && !isNaN(params['z'])) ) {
-			valid = false;
-			return valid;
+		/** Check if the url has the minimum requirements to create a valid search **/
+
+		// First, check if the url contains a zoom level and, if it does, that the value is legitimate
+		if( !(params.hasOwnProperty('z') && !isNaN(params['z'])) ) {
+			return false;
 		}
-		if( !('bn' in params) ) {
+
+		// Check to see if the url contains a bounds parameter
+		if( !(params.hasOwnProperty('bn')) ) {
 			var bounds = params['bn'].split(',');
+
+			// Make sure we have all 4 values we need to actually have map bounds
 			if(bounds.length != 4) {
-				valid = false;
-				return valid;
+				return false;
 			}
+
+			// Make sure we hav 4 legitimate values
 			for(var i=0; i < bounds.length; i++) {
 				if(isNaN(parseFloat(bounds[i]))) {
-					valid = false;
-					return valid;
+					return false;
 				}
 			}
 
 		}
-		return valid;
+
+		// If we made it this far, we can actually do something with this url
+		return true;
 	};
 
 	var searchToUrl = function (searchObj) {
+		/** Convert search object into url string (aka query parameters) */
 
+		var url = '';
+		for(var key in searchObj) {
+			// If there are already values in the url string, we need to add an & character - durh
+			if(url != '') url += '&';
+
+			// Add the appropriate abbreviated url key
+			url += searchKeys[key].url + "=";
+
+			// For lists and booleans, we have a special url structure - Bottomless takes care of that
+			var type = searchKeys[key].type;
+			if (type === 'intList' || type === 'floatList' || type === 'stringList' || type === 'bool') {
+				url += Bottomless.filthifyByType(type, searchObj[key]);
+			} else {
+
+				// Otherwise, just attach the value to the url string
+				url += searchObj[key];
+			}
+		}
+		return url;
 	};
 
 	var setSearch = function (params) {
+		/** Save search from url into model **/
 
+		// Check if the url would even make a valid search object
+		if(isUrlValid(params)) {
+
+		// Convert url to valid search object (stored as local variable)
+			_urlToSearch(params);
+
+		// Let the SearchCtrl know that it needs to update its model
+			$rootScope.$broadcast('SearchUpdated')
+		} else {
+
+			// If it's not valid, make the SearchCtrl apply its model so the url becomes valid
+			$rootScope.$broadcast('UpdateURL');
+		}
 	};
 
 	return {
@@ -166,6 +216,7 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 	/* Scope Watches
 	******************/
 	$scope.$on('AlertSaved', function () {
+		// Revert to normal search (aka not setting an alert)
 		$scope.isCreatingAlert = false;
 		$scope.isNamingAlert = false;
 	});

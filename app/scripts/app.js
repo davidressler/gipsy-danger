@@ -12,7 +12,6 @@ app.run(function($rootScope, $location, $routeParams, Search, Bottomless) {
 
 	/* Scope Variables
 	********************/
-	$rootScope.Bottomless = Bottomless;
 
 	/* Route Changes */
 	$rootScope.$on('$routeChangeSuccess', function () {
