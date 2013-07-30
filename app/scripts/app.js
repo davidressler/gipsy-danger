@@ -13,7 +13,8 @@ app.run(function($rootScope, $location, $routeParams, Search, Bottomless) {
 	/* Scope Variables
 	********************/
 
-	/* Route Changes */
+	/* Route Changes
+	******************/
 	$rootScope.$on('$routeChangeSuccess', function () {
 
 		if($location.path() == '/search/map' || $location.path() == '/search/list') {
