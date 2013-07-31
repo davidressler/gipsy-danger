@@ -526,6 +526,11 @@
 	     google.maps.event.addListener(projection, 'ready', function() {
 		    AlertsFact.setProjection(projection);
 		    ShapeFact.setMap(_m.map);
+		    ClusterFact.setMap(_m.map);
+	     });
+
+	     google.maps.event.addListener(_m.map, 'click', function() {
+		    ClusterFact.hideAllListingCells();
 	     });
       }
     };

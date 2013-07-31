@@ -320,7 +320,12 @@ searchMod.directive('searchMapDir', function() {
 	}
 });
 
-searchMod.controller('SearchMapCtrl', function($scope) {
+searchMod.controller('SearchMapCtrl', function($scope, $timeout, ClusterFact) {
+	/* Controller Setup
+	 ********************/
+	$timeout(function () {
+		$scope.init();
+	});
 
 	/* Scope Variables
 	*******************/
@@ -338,6 +343,20 @@ searchMod.controller('SearchMapCtrl', function($scope) {
 		keyboardShortcuts: false,
 		disableDefaultUI: true
 	};
+
+	/* Scope Functions
+	********************/
+	$scope.init = function() {
+
+	};
+
+
+	/* Scope Watches
+	********************/
+	$scope.$on('UpdateClusters', function() {
+		$scope.clusters = ClusterFact.getClusters($scope.search);
+	});
+
 });
 
 searchMod.directive('SearchListDir', function () {

@@ -7,13 +7,13 @@
     <file path="/app.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375222092489" ignored="false" />
     <file path="/map.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375225813578" ignored="false" />
     <file path="/main.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374274947816" ignored="false" />
-    <file path="/index.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375205918349" ignored="false" />
+    <file path="/index.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375291979498" ignored="false" />
     <file path="/map.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374272371735" ignored="false" />
     <file path="/a.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375135606970" ignored="false" />
     <file path="/b.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375135612305" ignored="false" />
     <file path="/main.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375220565956" ignored="false" />
     <file path="/search.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375225722149" ignored="false" />
-    <file path="/hack-maps.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375228563710" ignored="false" />
+    <file path="/hack-maps.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375299757873" ignored="false" />
     <file path="/a.dummy" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375231611033" ignored="false" />
     <file path="$USER_HOME$/Github/Spot/spot/controllers/authenticate.py" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374631558953" ignored="false" />
     <file path="/authenticate.py" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374631499272" ignored="false" />
@@ -25,7 +25,7 @@
     <file path="/facebooke1.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374688408499" ignored="false" />
     <file path="/alert-box.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374712347528" ignored="false" />
     <file path="/dummy.xml" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374712344401" ignored="false" />
-    <file path="/Dummy.txt" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375231560812" ignored="false" />
+    <file path="/Dummy.txt" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375292203596" ignored="false" />
     <file path="$USER_HOME$/Github/Pearl/pearl/templates/include/property/head.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374772957922" ignored="false" />
     <file path="$USER_HOME$/Github/Pearl/pearl/controllers/property.py" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374772957922" ignored="false" />
     <file path="/head.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374772118423" ignored="false" />
@@ -37,11 +37,11 @@
     <file path="/router.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375146160937" ignored="false" />
     <file path="/user.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375123092724" ignored="false" />
     <file path="/authentication.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375124371172" ignored="false" />
-    <file path="/cluster.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374860643918" ignored="false" />
-    <file path="/listing.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375131063697" ignored="false" />
+    <file path="/cluster.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375299832181" ignored="false" />
+    <file path="/listing.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375299182238" ignored="false" />
     <file path="$USER_HOME$/Github/Spot/spot/public/resource/script/boodle/classes/building.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374878897886" ignored="false" />
     <file path="/searchitems.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375126089086" ignored="false" />
-    <file path="/search.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375231649990" ignored="false" />
+    <file path="/search.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375293043654" ignored="false" />
     <file path="/alert.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375233399577" ignored="false" />
     <file path="/building.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375132259211" ignored="false" />
     <file path="/bottomless.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375225355261" ignored="false" />
@@ -54,6 +54,7 @@
     <file path="$USER_HOME$/Github/Spot/spot/controllers/search.py" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375233344905" ignored="false" />
     <file path="/search.py" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375233341749" ignored="false" />
     <file path="$USER_HOME$/Github/Spot/spot/public/resource/script/boodle/classes/search.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375231651054" ignored="false" />
+    <file path="/properties.js" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375296967242" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +68,25 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="alert.js" pinned="false" current="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/app/scripts/alert.js">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state line="199" column="28" selection-start="5276" selection-end="5276" vertical-scroll-proportion="0.66556567">
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="angular_router" />
@@ -76,7 +96,7 @@
       <file leaf-file-name="hack-maps.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/hack-maps.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="527" column="27" selection-start="14805" selection-end="14805" vertical-scroll-proportion="-26.84">
+            <state line="532" column="46" selection-start="14967" selection-end="14967" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -100,28 +120,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bottomless.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/bottomless.js">
+      <file leaf-file-name="cluster.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/cluster.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="150" column="3" selection-start="3328" selection-end="3328" vertical-scroll-proportion="0.0">
+            <state line="114" column="6" selection-start="2675" selection-end="2675" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="search.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/search.js">
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="265" column="29" selection-start="6904" selection-end="6904" vertical-scroll-proportion="0.0">
+            <state line="4" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.04954583">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="alert.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/alert.js">
+      <file leaf-file-name="properties.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/properties.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="483" column="0" selection-start="79532" selection-end="79532" vertical-scroll-proportion="0.0">
+            <state line="67" column="33" selection-start="1454" selection-end="1454" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="listing.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/listing.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="35" selection-start="363" selection-end="363" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -129,10 +158,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fakeListingData.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="search.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/search.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="317" column="0" selection-start="8290" selection-end="8290" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fakeListingData.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/fakeListingData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="556" column="4" selection-start="160460" selection-end="160460" vertical-scroll-proportion="0.8761792">
+            <state line="6" column="68" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -141,27 +179,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="217" column="25" selection-start="7056" selection-end="7056" vertical-scroll-proportion="-20.875">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="map.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/map.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="17" selection-start="342" selection-end="342" vertical-scroll-proportion="-8.75">
-              <folding>
-                <marker date="1375225813000" expanded="true" signature="36:341" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/search.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="30" selection-start="519" selection-end="519" vertical-scroll-proportion="-10.0">
+            <state line="203" column="45" selection-start="6351" selection-end="6351" vertical-scroll-proportion="-35.083332">
               <folding />
             </state>
           </provider>
@@ -177,26 +195,27 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/scripts/building.js" />
-        <option value="$PROJECT_DIR$/app/scripts/controllers/main.js" />
-        <option value="$PROJECT_DIR$/app/views/a.html" />
         <option value="$PROJECT_DIR$/app/views/b.html" />
         <option value="$PROJECT_DIR$/app/scripts/router.js" />
         <option value="$PROJECT_DIR$/app/scripts/templates.js" />
-        <option value="$PROJECT_DIR$/app/index.html" />
-        <option value="$PROJECT_DIR$/app/scripts/properties.js" />
         <option value="$PROJECT_DIR$/app/scripts/bottomless.js" />
         <option value="$PROJECT_DIR$/app/views/search.html" />
         <option value="$PROJECT_DIR$/app/views/map.html" />
         <option value="$PROJECT_DIR$/app/scripts/app.js" />
-        <option value="$PROJECT_DIR$/app/scripts/hack-maps.js" />
-        <option value="$PROJECT_DIR$/app/scripts/search.js" />
+        <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/scripts/alert.js" />
         <option value="$PROJECT_DIR$/app/scripts/fakeListingData.js" />
+        <option value="$PROJECT_DIR$/app/scripts/search.js" />
+        <option value="$PROJECT_DIR$/app/scripts/properties.js" />
+        <option value="$PROJECT_DIR$/app/scripts/listing.js" />
+        <option value="$PROJECT_DIR$/app/scripts/hack-maps.js" />
+        <option value="$PROJECT_DIR$/app/scripts/cluster.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="-20" />
     <option name="y" value="22" />
     <option name="width" value="2560" />
     <option name="height" value="1359" />
@@ -349,6 +368,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angular_router" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gipsy-danger" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bower_components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -356,7 +393,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Github/Pearl" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Github/Spot" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
   </component>
@@ -420,15 +457,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="2560" height="1359" extended-state="0" />
+    <frame x="-20" y="22" width="2560" height="1359" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28248587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1185362" sideWeight="0.7175141" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11933174" sideWeight="0.7175141" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -437,6 +473,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28248587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -505,51 +542,14 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/scripts/authentication.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/cluster.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="39" selection-start="1138" selection-end="1138" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/templates.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="66" selection-start="636" selection-end="636" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="17" column="66" selection-start="636" selection-end="636" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/alert-box.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="111" selection-end="111" vertical-scroll-proportion="-3.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/properties.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="33" selection-start="710" selection-end="710" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="62" selection-start="644" selection-end="644" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="5" column="0" selection-start="111" selection-end="111" vertical-scroll-proportion="-3.125" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/bottomless.js">
@@ -561,23 +561,74 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/map.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="342" selection-end="342" vertical-scroll-proportion="-8.75">
+        <state line="14" column="17" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0">
           <folding>
-            <marker date="1375225813000" expanded="true" signature="36:341" placeholder="..." />
+            <marker date="1375225813000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="25" selection-start="7056" selection-end="7056" vertical-scroll-proportion="-20.875">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/search.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="30" selection-start="519" selection-end="519" vertical-scroll-proportion="-10.0">
+        <state line="16" column="30" selection-start="519" selection-end="519" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="203" column="45" selection-start="6351" selection-end="6351" vertical-scroll-proportion="-35.083332">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/alert.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="199" column="28" selection-start="5276" selection-end="5276" vertical-scroll-proportion="0.66556567">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/fakeListingData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="68" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="317" column="0" selection-start="8290" selection-end="8290" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/listing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="35" selection-start="363" selection-end="363" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/hack-maps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="532" column="46" selection-start="14967" selection-end="14967" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/properties.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="33" selection-start="1454" selection-end="1454" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="62" selection-start="644" selection-end="644" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -589,32 +640,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/search.js">
+    <entry file="file://$PROJECT_DIR$/app/scripts/cluster.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="265" column="29" selection-start="6904" selection-end="6904" vertical-scroll-proportion="0.0">
+        <state line="114" column="6" selection-start="2675" selection-end="2675" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/hack-maps.js">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="527" column="27" selection-start="14805" selection-end="14805" vertical-scroll-proportion="-26.84">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/alert.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="483" column="0" selection-start="79532" selection-end="79532" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/fakeListingData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="556" column="4" selection-start="160460" selection-end="160460" vertical-scroll-proportion="0.8761792">
+        <state line="4" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.04954583">
           <folding />
         </state>
       </provider>
