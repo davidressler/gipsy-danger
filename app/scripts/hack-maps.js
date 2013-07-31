@@ -315,8 +315,8 @@
   /**
    * Map directive
    */
-  googleMapsModule.directive("googleMap", ["$log", "$timeout", "$filter", '$rootScope', 'ClusterFact', 'AlertsFact', function ($log, $timeout,
-      $filter, $rootScope, ClusterFact, AlertsFact) {
+  googleMapsModule.directive("googleMap", ["$log", "$timeout", "$filter", '$rootScope', 'ClusterFact', 'AlertsFact', 'ShapeFact', function ($log, $timeout,
+      $filter, $rootScope, ClusterFact, AlertsFact, ShapeFact) {
 
     var _m;
 
@@ -371,10 +371,6 @@
           draggable: attrs.draggable == "true",
           zoom: scope.zoom
         }));
-
-	    $timeout(function() {
-		    $rootScope.map = _m.map;
-	    });
 
         _m.on("drag", function () {
 
@@ -529,6 +525,7 @@
 	     var projection = new ProjectionHelperOverlay(_m.map);
 	     google.maps.event.addListener(projection, 'ready', function() {
 		    AlertsFact.setProjection(projection);
+		    ShapeFact.setMap(_m.map);
 	     });
       }
     };

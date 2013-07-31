@@ -265,7 +265,7 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 		if($scope.isArea === 'true') {
 			ShapeFact.clearShapes();
 		} else {
-			ShapeFact.getShapes(shapeData);
+			ShapeFact.getShapes($scope.search.bounds);
 		}
 	});
 

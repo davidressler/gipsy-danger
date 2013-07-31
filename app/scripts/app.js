@@ -14,10 +14,6 @@ var Spot = angular.module('spot', dependencies);
 
 Spot.run(function($rootScope, $location, $routeParams, SearchFact) {
 
-	/* Variables
-	**************/
-	$rootScope.map;
-
 	/* Route Changes
 	******************/
 	$rootScope.$on('$routeChangeSuccess', function () {
