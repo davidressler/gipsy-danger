@@ -25,7 +25,7 @@
     <file path="/facebooke1.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374688408499" ignored="false" />
     <file path="/alert-box.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374712347528" ignored="false" />
     <file path="/dummy.xml" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374712344401" ignored="false" />
-    <file path="/Dummy.txt" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375373553812" ignored="false" />
+    <file path="/Dummy.txt" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1375380710185" ignored="false" />
     <file path="$USER_HOME$/Github/Pearl/pearl/templates/include/property/head.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374772957922" ignored="false" />
     <file path="$USER_HOME$/Github/Pearl/pearl/controllers/property.py" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374772957922" ignored="false" />
     <file path="/head.html" changelist="065833c7-f51a-4959-8645-c6b3cb911b11" time="1374772118423" ignored="false" />
@@ -142,7 +142,7 @@
       <file leaf-file-name="a.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/a.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="60" selection-start="248" selection-end="248" vertical-scroll-proportion="0.07168459">
+            <state line="2" column="71" selection-start="113" selection-end="113" vertical-scroll-proportion="0.035842296">
               <folding />
             </state>
           </provider>
@@ -384,7 +384,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Github/Pearl" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/SpotWeb" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
   </component>
@@ -656,7 +656,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/a.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="60" selection-start="248" selection-end="248" vertical-scroll-proportion="0.07168459">
+        <state line="2" column="71" selection-start="113" selection-end="113" vertical-scroll-proportion="0.035842296">
           <folding />
         </state>
       </provider>
