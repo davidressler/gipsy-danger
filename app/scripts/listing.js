@@ -43,8 +43,18 @@ listingsMod.factory('ListingFact', function() {
 
 	/* Public Functions */
 	var getById = function (id) {
-		return new FullListing();
-	};
+//		return new FullListing(id);
+        var res = [];
+        for (var listing in listingData) {
+            if (listingData[listing].id == id) {
+                listing = parseInt(listing);
+                res.push(listingData[listing-1]);
+                res.push(listingData[listing]);
+                res.push(listingData[listing + 1]);
+            }
+        }
+        return res;
+    };
 
 	return {
 		getById: getById
@@ -56,14 +66,46 @@ listingsMod.factory('ListingFact', function() {
 /**********************************/
 /** Full Listing Page Controller **/
 /**********************************/
-listingsMod.controller('ListingCtrl', function($scope, $routeParams, $location, ListingFact) {
+listingsMod.controller('ListingCtrl', function($scope, $routeParams, $location, $timeout, ListingFact) {
 	/* Controller Setup
 	 ********************/
-	if('listingId' in $routeParams) {
-		$scope.listing = ListingFact.getById($routeParams.listingId);
-	} else {
-		var urlParts = $location.path().split('/');
-		$location.path('/' + urlParts[0] + '/' + urlParts[1]);
-	}
+    $timeout(function () {
+        $scope.init();
+    });
+
+    /* Scope Variables
+     ********************/
+
+
+    /* Scope Functions
+     ********************/
+    $scope.init = function() {
+        $scope.isReady = true;
+        $scope.listings = ListingFact.getById($routeParams.listingId);
+    };
+
+    $scope.loadPropertyFromPosition = function(newPosition) {
+        var nextListingId = $scope.listings[newPosition].id;
+        $scope.updateURL(nextListingId);
+    };
+
+    $scope.updateURL = function(id) {
+        var newURL = $location.path().split('/');
+        var URL = '/' + newURL[1] + '/' + newURL[2] + '/listing/' + id;
+        $scope.$apply(function() {
+            $location.url(URL);
+        });
+    };
+
+//    debugger;
+//
+//    if('listingId' in $routeParams) {
+//		$scope.listing = ListingFact.getById($routeParams.listingId);
+//	} else {
+//		var urlParts = $location.path().split('/');
+//		$location.path('/' + urlParts[0] + '/' + urlParts[1]);
+//	}
+
+
 
 });

@@ -24,7 +24,7 @@ Spot.config(function ($routeProvider) {
 		    })
 			    .when('/search/list/listing/:listingId', {
 					templateUrl: 'views/listing.html',
-					controller: 'ListingController'
+					controller: 'ListingCtrl'
 				})
 			    .when('/search/list/building/:buildingId', {
 				    templateUrl: 'views/building.html',
@@ -41,7 +41,7 @@ Spot.config(function ($routeProvider) {
 		    })
 			    .when('/search/map/listing/:listingId', {
 				    templateUrl: 'views/listing.html',
-				    controller: 'ListingController'
+				    controller: 'ListingCtrl'
 			    })
 			    .when('/search/map/building/:buildingId', {
 				    templateUrl: 'views/building.html',
