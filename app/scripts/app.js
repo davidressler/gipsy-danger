@@ -1,12 +1,18 @@
 'use strict';
 
 var dependencies = [
+    'angular-carousel',
+	'google-maps',
+	'ClusterMod',
 	'AlertsMod',
 	'BottomlessJS',
 	'ClusterMod',
 	'google-maps',
 	'ListingMod',
 	'PropertiesMod',
+	'TemplatesMod',
+	'AlertsMod',
+    'ListingMod'
 	'SearchMod',
 	'TemplatesMod'
 ];
@@ -29,7 +35,6 @@ Spot.run(function($rootScope, $location, $routeParams, SearchFact) {
 	******************/
 	$rootScope.$on('$routeChangeSuccess', function () {
 		_setSearchFromParams($routeParams);
-
 	});
 
 	$rootScope.$on('$routeUpdate', function() {
