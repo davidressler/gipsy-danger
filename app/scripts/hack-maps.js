@@ -421,34 +421,6 @@
 
           _m.on("idle", function () {
               $timeout(function () {
-
-	              //TODO: BULLSHIT CLUSTER STUFF
-//	              var num = Math.random();
-//	              var data = [];
-//	              for(var i=0; i < 25; i++){
-//		              var result = {};
-//		              result['c'] = i;
-//		              if(i % 2 == 0) {
-//			              result['la'] = _m.center.lat() - (i * 0.01);
-//
-//		              }else {
-//			              result['la'] = _m.center.lat() + (i * 0.01);
-//
-//		              }
-//
-//		              if(i % 3 == 0) {
-//			              result['ln'] = _m.center.lng() - (i * 0.01);
-//		              } else {
-//			              result['ln'] = _m.center.lng() + (i * 0.01);
-//		              }
-//
-//		              result['l'] = [];
-//		              data.push(result);
-//
-//	              }
-//
-//	              ClusterFact.createClusters(data, _m.map);
-
 	              scope.$apply(function (s) {
 		              scope.bounds = _m.map.getBounds();
 	              });

@@ -1,0 +1,10 @@
+<a style="background:white;display: block"  ng-href="#/search/map/listing/{{ listing.id }}?{{ generateUrl() }}" ng-click="hide()">
+    <img style="float:left" ng-src="http://d2vzw4mx84c4xs.cloudfront.net/chafe/2/{{ listing.defaultPhoto }}.jpg"/>
+    <div style="float:left">
+        <b>{{ listing.price }}</b>
+        {{ listing.beds }} / {{ listing.baths }}
+        <span style="display:block">{{ listing.locationTitle }}</span>
+        <span style="display:block">{{ listing.postDateEpoch }}</span>
+    </div>
+    <div style="clear:both"></div>
+</a>

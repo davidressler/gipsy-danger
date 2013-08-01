@@ -1,1 +1,7 @@
-This is template A.
+This page has the list.
+<search-list-dir>
+   <div ng-repeat="property in properties" ng-switch="property.typeId">
+       <listing-dir ng-switch-when="1" property="property"></listing-dir>
+       <building-dir ng-switch-when="2" property="property"></building-dir>
+   </div>
+</search-list-dir>

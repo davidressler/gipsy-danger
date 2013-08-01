@@ -221,6 +221,10 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 		$scope.isCreatingAlert = true;
 	};
 
+	$scope.generateUrl = function() {
+		return SearchFact.searchToUrl($scope.search);
+	};
+
 	$scope.init = function () {
 		$scope.isReady = true;
 		// Is the URL Valid? If not, we need to set the params
@@ -244,7 +248,7 @@ searchMod.controller('SearchCtrl', function($scope, $location, $timeout, SearchF
 
 	$scope.updateURL = function () {
 		if($scope.isReady) {
-			$location.search(SearchFact.searchToUrl($scope.search));
+			$location.search($scope.generateUrl());
 		}
 	};
 
@@ -359,15 +363,44 @@ searchMod.controller('SearchMapCtrl', function($scope, $timeout, ClusterFact) {
 
 });
 
-searchMod.directive('SearchListDir', function () {
+searchMod.directive('searchListDir', function () {
 	return {
 		restrict: 'EA',
 		template: '<div class="search-list" ng-transclude></div>',
 		controller: 'SearchListCtrl',
-		transclude: true
+		transclude: true,
+		link: function(scope, element, attrs){
+			console.log('list is happening');
+		}
 	}
 });
 
 searchMod.controller('SearchListCtrl', function ($scope) {
 
+});
+
+searchMod.directive('listingDir', function() {
+	return {
+		restrict: 'EA',
+		template: '<span>{{ listing }}</span>',
+		scope: {
+			listing: '=property'
+		},
+		link: function(scope, element, attrs){
+			console.log(scope.listing);
+		}
+	}
+});
+
+searchMod.directive('buildingDir', function() {
+	return {
+		restrict: 'EA',
+		template: '<span>{{ building }}</span>',
+		scope: {
+			building: '=property'
+		},
+		link: function(scope, element, attrs){
+			console.log(scope.building);
+		}
+	}
 });

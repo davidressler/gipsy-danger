@@ -137,20 +137,6 @@ alertsMod.directive('alertBoxDir', function(AlertsFact) {
 	}
 });
 
-///***********************************/
-///** Alert Bounding Box Controller **/
-///***********************************/
-//alertsMod.controller('AlertBoxCtrl', function($scope, $rootScope) {
-//
-//	/* Scope Functions */
-//	$scope.getBounds = function () {
-//		var bounds = google.maps.event.trigger($rootScope.map, 'getAlertBounds');
-//		console.log(bounds);
-//	};
-//
-//});
-
-
 // TODO: MAybe a separate module? But I don't think so cause shapes are really about alerts so fuck dat shit
 /*****************/
 /** Shape Model **/

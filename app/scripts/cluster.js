@@ -27,17 +27,14 @@ clusterMod.factory('ClusterFact', function($rootScope, PropertiesFact, $compile)
 		for(var i=0; i < clusterDict.length; i++) {
 			clusters.push(new Cluster(clusterDict[i], map, $compile, $scope));
 		}
-		console.log(clusters);
 	}
 
 	var getClusters = function(bounds, $scope) {
 		_createClusters(clusterData, $scope);
-		console.log(clusters);
 		return clusters;
 	};
 
 	var hideAllListingCells = function() {
-		console.log('hidingggg', clusters);
 		for(var i=0; i < clusters.length; i++) {
 			clusters[i].HideListings();
 		}
@@ -69,7 +66,7 @@ clusterMod.directive('clusterDir', function(PropertiesFact, $compile) {
 			function _createListingCell() {
 				var div = angular.element(document.createElement('div'));
 
-				div.css('position', 'absolute').css('top', element.children().eq(0).position().top - 40).css('left', element.children().eq(0).position().left + 50);
+				div.css('position', 'absolute').css('top', element.children().eq(0).position().top - 40).css('left', element.children().eq(0).position().left + 50).css('max-height', '300px');
 				div.attr('ng-show', 'showListings');
 				var el = $compile(div)(scope);
 
@@ -130,7 +127,16 @@ clusterMod.directive('clusterDir', function(PropertiesFact, $compile) {
 clusterMod.directive('listingCellDir', function() {
 	return {
 		restrict: 'EA',
-		template: '<div style="background:white"><img style="float:left" ng-src="http://d2vzw4mx84c4xs.cloudfront.net/chafe/2/{{ listing.defaultPhoto }}.jpg"/><div style="float:left"><b>{{ listing.price }}</b>{{ listing.beds }} / {{ listing.baths }}<span style="display:block">{{ listing.locationTitle }}</span><span style="display:block">{{ listing.postDateEpoch }}</span></div><div style="clear:both"></div></div>',
+		templateUrl: 'views/listing-cell-dir.html',
+		controller: function($scope) {
+			$scope.hide = function() {
+				$scope.$parent.showListings = false;
+			};
+
+			$scope.generateUrl = function(){
+				return $scope.$parent.$parent.generateUrl();
+			};
+		},
 		link: function(scope, element, attrs) {
 			element.hover(function () {
 				scope.$apply(function () {
@@ -170,9 +176,7 @@ function Cluster(data, map, $compile, $scope){
 	};
 
 	this.HideListings = function () {
-		console.log(this.propertiesDiv);
 		if(this.propertiesDiv != null) {
-			console.log(this);
 			this.propertiesDiv.style.display = 'none';
 		}
 	};
@@ -239,6 +243,6 @@ Cluster.prototype.draw = function () {
 	this.div[0].firstChild.style.top = (position.y) + "px";
 };
 Cluster.prototype.onRemove = function () {
-	this.div.parentNode.removeChild(this.div);
+	this.div.remove();
 	this.div = null;
 };

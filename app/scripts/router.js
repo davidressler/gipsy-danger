@@ -24,15 +24,18 @@ Spot.config(function ($routeProvider) {
 		    })
 			    .when('/search/list/listing/:listingId', {
 					templateUrl: 'views/listing.html',
-					controller: 'ListingController'
+					controller: 'SearchCtrl',
+		            reloadOnSearch: false
 				})
 			    .when('/search/list/building/:buildingId', {
 				    templateUrl: 'views/building.html',
-				    controller: 'BuildingController'
+				    controller: 'SearchCtrl',
+		            reloadOnSearch: false
 			    })
 				    .when('/search/list/building/:buildingId/floorplan/:floorplanId', {
 					    templateUrl: 'views/floorplan.html',
-		                controller: 'BuildingController'
+		                controller: 'SearchCtrl',
+		                reloadOnSearch: false
 				    })
 		    .when('/search/map', {
 			    templateUrl: 'views/search.html',
@@ -41,15 +44,18 @@ Spot.config(function ($routeProvider) {
 		    })
 			    .when('/search/map/listing/:listingId', {
 				    templateUrl: 'views/listing.html',
-				    controller: 'ListingController'
+				    controller: 'SearchCtrl',
+		            reloadOnSearch: false
 			    })
 			    .when('/search/map/building/:buildingId', {
 				    templateUrl: 'views/building.html',
-				    controller: 'BuildingController'
+				    controller: 'SearchCtrl',
+		            reloadOnSearch: false
 			    })
 				    .when('/search/list/building/:buildingId/floorplan/:floorplanId', {
 					    templateUrl: 'views/floorplan.html',
-					    controller: 'BuildingController'
+					    controller: 'SearchCtrl',
+		                reloadOnSearch: false
 				    })
 
 	    /*******************/
@@ -57,23 +63,23 @@ Spot.config(function ($routeProvider) {
 	    /*******************/
 	    .when('/alerts', {
 			templateUrl: 'views/alert.html',
-		    controller: 'AlertController'
+		    controller: 'AlertCtrl'
 		})
 	    .when('/alert/:alertId', {
 		    templateUrl: 'views/alert.html',
-		    controller: 'AlertController'
+		    controller: 'AlertCtrl'
 	    })
 		    .when('/alert/:alertId/listing/:listingId', {
 			    templateUrl: 'views/listing.html',
-			    controller: 'ListingController'
+			    controller: 'ListingCtrl'
 		    })
 		    .when('/alert/:alertId/building/:buildingId', {
 			    templateUrl: 'views/building.html',
-			    controller: 'BuildingController'
+			    controller: 'BuildingCtrl'
 		    })
 			    .when('/alert/:alertId/building/:buildingId/floorplan/:floorplanId', {
 				    templateUrl: 'views/floorplan.html',
-				    controller: 'BuildingController'
+				    controller: 'BuildingCtrl'
 			    })
 
 	    /******************/
@@ -81,19 +87,19 @@ Spot.config(function ($routeProvider) {
 	    /******************/
 	    .when('/inbox', {
 		    templateUrl: 'views/inbox.html',
-		    controller: 'InboxController'
+		    controller: 'InboxCtrl'
 	    })
 		    .when('/inbox/favorites', {
 			    templateUrl: 'views/inbox.html',
-		        controller: 'InboxController'
+		        controller: 'InboxCtrl'
 		    })
 		    .when('/inbox/inactive', {
 			    templateUrl: 'views/inbox.html',
-			    controller: 'InboxController'
+			    controller: 'InboxCtrl'
 		    })
 		    .when('/inbox/applied', {
 			    templateUrl: 'views/inbox.html',
-			    controller: 'InboxController'
+			    controller: 'InboxCtrl'
 		    })
 
 	    /********************/
@@ -104,21 +110,21 @@ Spot.config(function ($routeProvider) {
 	    })
 		    .when('/account/settings', {
 				templateUrl: 'views/account/settings.html',
-		        controller: 'AccountController',
+		        controller: 'AccountCtrl',
 		        access: {
 			        requireLoggedIn: true
 		        }
 		    })
 		    .when('/account/payments', {
 				templateUrl: 'views/whatever.html',
-		        controller: 'AccountController',
+		        controller: 'AccountCtrl',
 		        access: {
 			        requireLoggedIn: true
 		        }
 		    })
 		    .when('/account/profile', {
 				templateUrl: 'views/cool.html',
-		        controller: 'AccountController',
+		        controller: 'AccountCtrl',
 		        access: {
 			        requireLoggedIn: true
 		        }
