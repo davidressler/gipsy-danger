@@ -4,30 +4,40 @@ var dependencies = [
     'angular-carousel',
 	'google-maps',
 	'ClusterMod',
+	'AlertsMod',
 	'BottomlessJS',
-	'SearchMod',
+	'ClusterMod',
+	'google-maps',
+	'ListingMod',
 	'PropertiesMod',
 	'TemplatesMod',
 	'AlertsMod',
     'ListingMod'
+	'SearchMod',
+	'TemplatesMod'
 ];
 
 var Spot = angular.module('spot', dependencies);
 
 Spot.run(function($rootScope, $location, $routeParams, SearchFact) {
 
+	/* Private Functions
+	**********************/
+	function _setSearchFromParams(params) {
+		var path = $location.path();
+		var split = path.split('/');
+		if (path == '/search/map' || path == '/search/list' || (split.length > 3 && (split[3] == 'listing' || split[3] == 'building'))) {
+			SearchFact.setSearch(params);
+		}
+	}
+
 	/* Route Changes
 	******************/
 	$rootScope.$on('$routeChangeSuccess', function () {
-
-		if($location.path() == '/search/map' || $location.path() == '/search/list') {
-			SearchFact.setSearch($routeParams);
-		}
+		_setSearchFromParams($routeParams);
 	});
 
 	$rootScope.$on('$routeUpdate', function() {
-		if ($location.path() == '/search/map' || $location.path() == '/search/list') {
-			SearchFact.setSearch($routeParams);
-		}
+		_setSearchFromParams($routeParams);
 	})
 });

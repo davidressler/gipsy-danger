@@ -421,34 +421,6 @@
 
           _m.on("idle", function () {
               $timeout(function () {
-
-	              //TODO: BULLSHIT CLUSTER STUFF
-//	              var num = Math.random();
-//	              var data = [];
-//	              for(var i=0; i < 25; i++){
-//		              var result = {};
-//		              result['c'] = i;
-//		              if(i % 2 == 0) {
-//			              result['la'] = _m.center.lat() - (i * 0.01);
-//
-//		              }else {
-//			              result['la'] = _m.center.lat() + (i * 0.01);
-//
-//		              }
-//
-//		              if(i % 3 == 0) {
-//			              result['ln'] = _m.center.lng() - (i * 0.01);
-//		              } else {
-//			              result['ln'] = _m.center.lng() + (i * 0.01);
-//		              }
-//
-//		              result['l'] = [];
-//		              data.push(result);
-//
-//	              }
-//
-//	              ClusterFact.createClusters(data, _m.map);
-
 	              scope.$apply(function (s) {
 		              scope.bounds = _m.map.getBounds();
 	              });
@@ -506,7 +478,7 @@
             return;
           }
           
-          if (!_m.dragging) {
+          if (!_m.dragging) {0
             _m.center = new google.maps.LatLng(newValue[0],
                 newValue[1]);
             _m.draw();
@@ -526,6 +498,11 @@
 	     google.maps.event.addListener(projection, 'ready', function() {
 		    AlertsFact.setProjection(projection);
 		    ShapeFact.setMap(_m.map);
+		    ClusterFact.setMap(_m.map);
+	     });
+
+	     google.maps.event.addListener(_m.map, 'click', function() {
+		    $rootScope.$broadcast('CloseClusters');
 	     });
       }
     };

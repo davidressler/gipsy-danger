@@ -2,89 +2,247 @@
 /**         CLUSTER MODULE          **/
 /*************************************/
 
-var cluster = angular.module('ClusterMod', []);
+var clusterMod = angular.module('ClusterMod', []);
 
 /*********************/
 /** Cluster Factory **/
 /*********************/
-cluster.factory('ClusterFact', function($rootScope) {
+clusterMod.factory('ClusterFact', function($rootScope, PropertiesFact, $compile) {
 	/* Variables */
 	var clusters = [];
+	var map;
 
 	/* Private Functions */
 	function _clearMap() {
 		for(var i=0; i < clusters.length; i++) {
-			clusters[i].setMap(null);
+			clusters[i].Remove();
 		}
 		clusters = [];
 	}
 
 
 	/* Public Functions */
-	var createClusters = function(clusterDict, map) {
+	function _createClusters(clusterDict, $scope) {
 		_clearMap();
 		for(var i=0; i < clusterDict.length; i++) {
-			clusters.push(new Cluster(clusterDict[i], map));
+			clusters.push(new Cluster(clusterDict[i], map, $compile, $scope));
+		}
+	}
+
+	var getClusters = function(bounds, $scope) {
+		_createClusters(clusterData, $scope);
+		return clusters;
+	};
+
+	var hideAllListingCells = function() {
+		for(var i=0; i < clusters.length; i++) {
+			clusters[i].HideListings();
 		}
 	};
 
-	var getClusters = function() {
-		return clusters;
+	var setMap = function(instance) {
+		map = instance;
+		$rootScope.$broadcast('UpdateClusters');
 	};
 
 	return {
 		getClusters: getClusters,
-		createClusters: createClusters
+		hideAllListingCells: hideAllListingCells,
+		setMap: setMap
 	}
 
 });
 
-//TODO: PUT OBJECT IN SEPARATE FILE
-	function Cluster(data, map){
-		this._count = data['c'];
-		this._center = new google.maps.LatLng(data["la"], data["ln"]);
-		this._div = null;
-		this._favorite = false;
-		this._fresh = false;
-		this._listings = data['l'];
-		this._map = map;
-		this._viewed = false;
+clusterMod.directive('clusterDir', function(PropertiesFact, $compile) {
+	return {
+		restrict: 'EA',
+		template: '<div class="cluster-bg"><div class="cluster cluster-fresh"><span></span></div></div>',
+		controller: function($scope) {
+			$scope.$on('CloseClusters', function() {
+				$scope.showListings = false;
+			});
+		},
+		link: function(scope, element, attrs) {
+			function _createListingCell() {
+				var div = angular.element(document.createElement('div'));
 
-		//TODO: Not sure if this line is necessary
-		google.maps.OverlayView.call(this);
-		this.setMap(map);
+				div.css('position', 'absolute').css('top', element.children().eq(0).position().top - 40).css('left', element.children().eq(0).position().left + 50).css('max-height', '300px');
+				div.attr('ng-show', 'showListings');
+				var el = $compile(div)(scope);
+
+				scope.properties.forEach(function(item){
+					var property = PropertiesFact.getById(item[0], item[1]);
+					if(property != null) {
+						var newScope = scope.$new(false), cell;
+
+						if(property.typeId == 1) {
+							cell = angular.element(document.createElement('listing-cell-dir'));
+							newScope.listing = property;
+						} else if(property.typeId == 2) {
+							cell = angular.element(document.createElement('building-cell-dir'));
+							newScope.building = property;
+						}
+
+						var el = $compile(cell)(newScope);
+						angular.element(div).append(cell);
+						newScope.insertHere = el;
+					}
+
+				});
+
+				angular.element(document.body).append(div);
+
+				scope.insertHere = el;
+				return div;
+			}
+
+			element.find('span').text(scope.count);
+
+			var listingCell = null;
+
+			element.click(function() {
+				if (listingCell === null) _createListingCell();
+				scope.$apply(function() {
+					scope.showListings = true;
+				});
+			});
+
+			element.hover(function() {
+				if(listingCell === null) _createListingCell();
+				scope.$apply(function(){
+					scope.showListings = true;
+				});
+			}, function() {
+				scope.$apply(function() {
+					scope.showListings = false;
+				});
+
+			});
+
+		}
 	}
-	Cluster.prototype = new google.maps.OverlayView();
-	Cluster.prototype.onAdd = function () {
-		this._div = document.createElement('div');
-		this._div.className = 'cluster-bg';
+});
 
-		var innerDiv = document.createElement('div');
-		innerDiv.className = 'cluster cluster-fresh';
+//TODO: DOESNT GO HERE
+clusterMod.directive('listingCellDir', function() {
+	return {
+		restrict: 'EA',
+		templateUrl: 'views/listing-cell-dir.html',
+		controller: function($scope) {
+			$scope.hide = function() {
+				$scope.$parent.showListings = false;
+			};
 
-		var span = document.createElement('span');
-		span.innerHTML = this._count || '4';
-		innerDiv.appendChild(span);
-		this._div.appendChild(innerDiv);
+			$scope.generateUrl = function(){
+				return $scope.$parent.$parent.generateUrl();
+			};
+		},
+		link: function(scope, element, attrs) {
+			element.hover(function () {
+				scope.$apply(function () {
+					scope.$parent.showListings = true;
+				});
+			}, function () {
+				scope.$apply(function () {
+					scope.$parent.showListings = false;
+				});
 
-		var panes = this.getPanes();
-		panes.overlayMouseTarget.appendChild(this._div);
+			});
+		}
+	}
+});
 
+//TODO: PUT OBJECT IN SEPARATE FILE
+function Cluster(data, map, $compile, $scope){
+	/* Variables
+	**************/
+	this.count = data['c'];
+	this.center = new google.maps.LatLng(data["la"], data["ln"]);
+	this.$compile = $compile;
+	this.div = null;
+	this.favorite = false;
+	this.fresh = false;
+	this.position = [];
+	this.properties = data['l'];
+	this.propertiesDiv = null;
+	this.map = map;
+	this.$scope = $scope;
+	this.viewed = false;
+
+	/* Functions
+	**************/
+	this.Click = function () {
+		alert('hey');
 	};
-	Cluster.prototype.draw = function () {
-		var position = this.getProjection().fromLatLngToDivPixel(this._center);
 
-		this._div.style.left = (position.x) + "px";
-		this._div.style.top = (position.y) + "px";
+	this.HideListings = function () {
+		if(this.propertiesDiv != null) {
+			this.propertiesDiv.style.display = 'none';
+		}
 	};
-	Cluster.prototype.onRemove = function () {
-		this._div.parentNode.removeChild(this._div);
-		this._div = null;
+
+	this.Initiate = function () {
+		google.maps.OverlayView.call(this);
+		this.setMap(this.map);
 	};
-	//TODO: Not sure if these two are necessary
-	Cluster.prototype.hide = function () {
+
+	this.Mouseover = function () {
+		this.ShowListings();
+	};
+
+	this.Remove = function () {
 		this.setMap(null);
 	};
-	Cluster.prototype.show = function () {
-		this.setMap(this._map);
+
+	this.ShowListings = function () {
+//		ClusterFact.$get().hideAllListingCells();
+//		if(this.propertiesDiv == null) {
+//			this.propertiesDiv = document.createElement('div');
+//			this.propertiesDiv.style.position = 'absolute';
+//			this.propertiesDiv.style.left = this.div.style.left;
+//			this.propertiesDiv.style.top = this.div.style.top;
+//			this.propertiesDiv.style.display = 'block';
+//			for (var i = 0; i < this.properties.length; i++) {
+//				var property = PropertiesFact.getById(this.properties[i][0], this.properties[i][1]);
+//				this.propertiesDiv.appendChild(property.DrawCell());
+//			}
+//			document.body.appendChild(this.propertiesDiv);
+//		} else {
+//			this.propertiesDiv.style.display = 'block';
+//		}
+
 	};
+
+	/* Initiate
+	*************/
+	this.Initiate();
+
+}
+Cluster.prototype = new google.maps.OverlayView();
+Cluster.prototype.onAdd = function () {
+	this.div = angular.element(document.createElement('cluster-dir'));
+
+	var scope = this.$scope.$new(true);
+	scope.count = this.count;
+	scope.showListings = false;
+	scope.properties = this.properties;
+
+	var el = this.$compile(this.div)(scope);
+
+	var panes = this.getPanes();
+	angular.element(panes.overlayMouseTarget).append(this.div);
+
+	scope.insertHere = el;
+
+
+};
+Cluster.prototype.draw = function () {
+	var position = this.getProjection().fromLatLngToDivPixel(this.center);
+
+	this.div[0].firstChild.style.left = (position.x) + "px";
+	this.div[0].firstChild.style.top = (position.y) + "px";
+};
+Cluster.prototype.onRemove = function () {
+	this.div.remove();
+	this.div = null;
+};

@@ -56,12 +56,30 @@ listingsMod.factory('ListingFact', function() {
         return res;
     };
 
+//		for(var i=0; i < listingData.length; i++) {
+//			if(listingData[i].id == parseInt(id)) {
+//				return new FullListing(listingData[i]);
+//			}
+//		}
+//		return null;
+//	};
+
+
 	return {
 		getById: getById
 	}
 
 });
 
+
+listingsMod.directive('listingPageDir', function() {
+	return {
+		restrict: 'EA',
+		template: '{{ listing }}',
+		controller: 'ListingCtrl'
+
+	}
+});
 
 /**********************************/
 /** Full Listing Page Controller **/
