@@ -2,17 +2,15 @@
 /**         CLUSTER MODULE          **/
 /*************************************/
 
-var cluster = angular.module('ClusterMod', []);
+var clusterMod = angular.module('ClusterMod', []);
 
 /*********************/
 /** Cluster Factory **/
 /*********************/
-cluster.factory('ClusterFact', function($rootScope, PropertiesFact) {
+clusterMod.factory('ClusterFact', function($rootScope, PropertiesFact, $compile) {
 	/* Variables */
 	var clusters = [];
-	var poop = 'hello';
 	var map;
-	var that = this;
 
 	/* Private Functions */
 	function _clearMap() {
@@ -24,21 +22,22 @@ cluster.factory('ClusterFact', function($rootScope, PropertiesFact) {
 
 
 	/* Public Functions */
-	function _createClusters(clusterDict) {
+	function _createClusters(clusterDict, $scope) {
 		_clearMap();
 		for(var i=0; i < clusterDict.length; i++) {
-			clusters.push(new Cluster(clusterDict[i], map, PropertiesFact));
+			clusters.push(new Cluster(clusterDict[i], map, $compile, $scope));
 		}
+		console.log(clusters);
 	}
 
-	var getClusters = function(bounds) {
-		console.log(bounds);
-		console.log(map);
-		_createClusters(clusterData);
+	var getClusters = function(bounds, $scope) {
+		_createClusters(clusterData, $scope);
+		console.log(clusters);
 		return clusters;
 	};
 
 	var hideAllListingCells = function() {
+		console.log('hidingggg', clusters);
 		for(var i=0; i < clusters.length; i++) {
 			clusters[i].HideListings();
 		}
@@ -52,34 +51,130 @@ cluster.factory('ClusterFact', function($rootScope, PropertiesFact) {
 	return {
 		getClusters: getClusters,
 		hideAllListingCells: hideAllListingCells,
-		setMap: setMap,
-		poop: poop
+		setMap: setMap
 	}
 
 });
 
+clusterMod.directive('clusterDir', function(PropertiesFact, $compile) {
+	return {
+		restrict: 'EA',
+		template: '<div class="cluster-bg"><div class="cluster cluster-fresh"><span></span></div></div>',
+		controller: function($scope) {
+			$scope.$on('CloseClusters', function() {
+				$scope.showListings = false;
+			});
+		},
+		link: function(scope, element, attrs) {
+			function _createListingCell() {
+				var div = angular.element(document.createElement('div'));
+
+				div.css('position', 'absolute').css('top', element.children().eq(0).position().top - 40).css('left', element.children().eq(0).position().left + 50);
+				div.attr('ng-show', 'showListings');
+				var el = $compile(div)(scope);
+
+				scope.properties.forEach(function(item){
+					var property = PropertiesFact.getById(item[0], item[1]);
+					if(property != null) {
+						var newScope = scope.$new(false), cell;
+
+						if(property.typeId == 1) {
+							cell = angular.element(document.createElement('listing-cell-dir'));
+							newScope.listing = property;
+						} else if(property.typeId == 2) {
+							cell = angular.element(document.createElement('building-cell-dir'));
+							newScope.building = property;
+						}
+
+						var el = $compile(cell)(newScope);
+						angular.element(div).append(cell);
+						newScope.insertHere = el;
+					}
+
+				});
+
+				angular.element(document.body).append(div);
+
+				scope.insertHere = el;
+				return div;
+			}
+
+			element.find('span').text(scope.count);
+
+			var listingCell = null;
+
+			element.click(function() {
+				if (listingCell === null) _createListingCell();
+				scope.$apply(function() {
+					scope.showListings = true;
+				});
+			});
+
+			element.hover(function() {
+				if(listingCell === null) _createListingCell();
+				scope.$apply(function(){
+					scope.showListings = true;
+				});
+			}, function() {
+				scope.$apply(function() {
+					scope.showListings = false;
+				});
+
+			});
+
+		}
+	}
+});
+
+//TODO: DOESNT GO HERE
+clusterMod.directive('listingCellDir', function() {
+	return {
+		restrict: 'EA',
+		template: '<div style="background:white"><img style="float:left" ng-src="http://d2vzw4mx84c4xs.cloudfront.net/chafe/2/{{ listing.defaultPhoto }}.jpg"/><div style="float:left"><b>{{ listing.price }}</b>{{ listing.beds }} / {{ listing.baths }}<span style="display:block">{{ listing.locationTitle }}</span><span style="display:block">{{ listing.postDateEpoch }}</span></div><div style="clear:both"></div></div>',
+		link: function(scope, element, attrs) {
+			element.hover(function () {
+				scope.$apply(function () {
+					scope.$parent.showListings = true;
+				});
+			}, function () {
+				scope.$apply(function () {
+					scope.$parent.showListings = false;
+				});
+
+			});
+		}
+	}
+});
+
 //TODO: PUT OBJECT IN SEPARATE FILE
-function Cluster(data, map, PropertiesFact){
+function Cluster(data, map, $compile, $scope){
 	/* Variables
 	**************/
 	this.count = data['c'];
 	this.center = new google.maps.LatLng(data["la"], data["ln"]);
+	this.$compile = $compile;
 	this.div = null;
 	this.favorite = false;
 	this.fresh = false;
+	this.position = [];
 	this.properties = data['l'];
 	this.propertiesDiv = null;
 	this.map = map;
+	this.$scope = $scope;
 	this.viewed = false;
 
 	/* Functions
 	**************/
 	this.Click = function () {
-		this.ShowListings();
+		alert('hey');
 	};
 
 	this.HideListings = function () {
-		if(this.propertiesDiv != null) this.propertiesDiv.style.display = 'none';
+		console.log(this.propertiesDiv);
+		if(this.propertiesDiv != null) {
+			console.log(this);
+			this.propertiesDiv.style.display = 'none';
+		}
 	};
 
 	this.Initiate = function () {
@@ -88,7 +183,7 @@ function Cluster(data, map, PropertiesFact){
 	};
 
 	this.Mouseover = function () {
-		alert('hey');
+		this.ShowListings();
 	};
 
 	this.Remove = function () {
@@ -96,21 +191,21 @@ function Cluster(data, map, PropertiesFact){
 	};
 
 	this.ShowListings = function () {
-		if(this.propertiesDiv == null) {
-			console.log('hey');
-			this.propertiesDiv = document.createElement('div');
-			this.propertiesDiv.style.position = 'absolute';
-			this.propertiesDiv.style.left = this.div.style.left;
-			this.propertiesDiv.style.top = this.div.style.top;
-			this.propertiesDiv.style.display = 'block';
-			for (var i = 0; i < this.properties.length; i++) {
-				var property = PropertiesFact.getById(this.properties[i][0], this.properties[i][1]);
-				this.propertiesDiv.appendChild(property.DrawCell());
-			}
-			document.body.appendChild(this.propertiesDiv);
-		} else {
-			this.propertiesDiv.style.display = 'block';
-		}
+//		ClusterFact.$get().hideAllListingCells();
+//		if(this.propertiesDiv == null) {
+//			this.propertiesDiv = document.createElement('div');
+//			this.propertiesDiv.style.position = 'absolute';
+//			this.propertiesDiv.style.left = this.div.style.left;
+//			this.propertiesDiv.style.top = this.div.style.top;
+//			this.propertiesDiv.style.display = 'block';
+//			for (var i = 0; i < this.properties.length; i++) {
+//				var property = PropertiesFact.getById(this.properties[i][0], this.properties[i][1]);
+//				this.propertiesDiv.appendChild(property.DrawCell());
+//			}
+//			document.body.appendChild(this.propertiesDiv);
+//		} else {
+//			this.propertiesDiv.style.display = 'block';
+//		}
 
 	};
 
@@ -121,32 +216,27 @@ function Cluster(data, map, PropertiesFact){
 }
 Cluster.prototype = new google.maps.OverlayView();
 Cluster.prototype.onAdd = function () {
-	var that = this;
+	this.div = angular.element(document.createElement('cluster-dir'));
 
-	this.div = document.createElement('div');
-	this.div.className = 'cluster-bg';
+	var scope = this.$scope.$new(true);
+	scope.count = this.count;
+	scope.showListings = false;
+	scope.properties = this.properties;
 
-	var innerDiv = document.createElement('div');
-	innerDiv.className = 'cluster cluster-fresh';
-
-	var span = document.createElement('span');
-	span.innerHTML = this.count;
-	innerDiv.appendChild(span);
-	this.div.appendChild(innerDiv);
+	var el = this.$compile(this.div)(scope);
 
 	var panes = this.getPanes();
-	panes.overlayMouseTarget.appendChild(this.div);
+	angular.element(panes.overlayMouseTarget).append(this.div);
 
-	this.div.onclick = function () {
-		that.Click();
-	};
+	scope.insertHere = el;
+
 
 };
 Cluster.prototype.draw = function () {
 	var position = this.getProjection().fromLatLngToDivPixel(this.center);
 
-	this.div.style.left = (position.x) + "px";
-	this.div.style.top = (position.y) + "px";
+	this.div[0].firstChild.style.left = (position.x) + "px";
+	this.div[0].firstChild.style.top = (position.y) + "px";
 };
 Cluster.prototype.onRemove = function () {
 	this.div.parentNode.removeChild(this.div);

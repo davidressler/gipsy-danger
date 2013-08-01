@@ -22,45 +22,6 @@ function Listing(data) {
 	this.sqft = data['sq'];
 	this.typeId = 1;
 
-	this.DrawCell = function() {
-		var container = document.createElement('div');
-		container.style.background = 'white';
-
-		var img = document.createElement('img');
-		img.style.float = 'left';
-		img.src = 'http://d2vzw4mx84c4xs.cloudfront.net/chafe/2/' + this.defaultPhoto + '.jpg';
-		container.appendChild(img);
-
-		var infoContainer = document.createElement('div');
-		infoContainer.style.float = 'left';
-
-		var price = document.createElement('span');
-		price.innerHTML = this.price;
-		price.style.fontWeight = 'bold';
-		infoContainer.appendChild(price);
-
-		var bedBath = document.createElement('span');
-		bedBath.innerHTML = this.beds + ' / ' + this.baths;
-		infoContainer.appendChild(bedBath);
-
-		var locationTitle = document.createElement('span');
-		locationTitle.innerHTML = this.locationTitle;
-		locationTitle.style.display = 'block';
-		infoContainer.appendChild(locationTitle);
-
-		var postedDate = document.createElement('span');
-		postedDate.innerHTML = this.postDateEpoch;
-		postedDate.style.display = 'block';
-		infoContainer.appendChild(postedDate);
-
-		var clearFix = document.createElement('div');
-		clearFix.style.clear = 'both';
-
-		container.appendChild(infoContainer);
-		container.appendChild(clearFix);
-		return container;
-	};
-
 }
 
 function FullListing(data) {

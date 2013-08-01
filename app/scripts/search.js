@@ -354,7 +354,7 @@ searchMod.controller('SearchMapCtrl', function($scope, $timeout, ClusterFact) {
 	/* Scope Watches
 	********************/
 	$scope.$on('UpdateClusters', function() {
-		$scope.clusters = ClusterFact.getClusters($scope.search);
+		$scope.clusters = ClusterFact.getClusters($scope.search, $scope);
 	});
 
 });

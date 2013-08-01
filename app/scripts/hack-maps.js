@@ -506,7 +506,7 @@
             return;
           }
           
-          if (!_m.dragging) {
+          if (!_m.dragging) {0
             _m.center = new google.maps.LatLng(newValue[0],
                 newValue[1]);
             _m.draw();
@@ -530,7 +530,7 @@
 	     });
 
 	     google.maps.event.addListener(_m.map, 'click', function() {
-		    ClusterFact.hideAllListingCells();
+		    $rootScope.$broadcast('CloseClusters');
 	     });
       }
     };

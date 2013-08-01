@@ -18,7 +18,6 @@ function Building(data) {
 	this.minPrice = data['p'];
 	this.title = data['ti'];
 	this.typeId = 2;
-
 }
 
 function FullBuilding(data) {

@@ -1,13 +1,13 @@
 'use strict';
 
 var dependencies = [
-	'google-maps',
-	'ClusterMod',
+	'AlertsMod',
 	'BottomlessJS',
-	'SearchMod',
+	'ClusterMod',
+	'google-maps',
 	'PropertiesMod',
-	'TemplatesMod',
-	'AlertsMod'
+	'SearchMod',
+	'TemplatesMod'
 ];
 
 var Spot = angular.module('spot', dependencies);

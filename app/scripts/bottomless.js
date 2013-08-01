@@ -75,7 +75,7 @@ bottomlessJS.factory('Bottomless', function () {
 		return list;
 	};
 
-	/************************ FILTHIFY FUNCTIONS (aka to URL) ************************/
+	/************************ FILTHIFY / SOILING FUNCTIONS (aka to URL) ************************/
 
 	/*******************/
 	/** Filthify Bool **/
